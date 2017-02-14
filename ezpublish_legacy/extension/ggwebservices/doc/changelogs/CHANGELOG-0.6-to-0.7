@@ -1,0 +1,30 @@
+Changes from 0.6 to 0.7 - released 2011/3/31
+
+*General:
+
+- Server: Add support for limiting access to webservices by client's IP address
+
+- Client: Add support for calling ezjscore servers
+- Client: Add support for setting cookies in the client
+- Client: Add support for setting ssl options in the client
+- Client: Allow soap client not to cache wsdl
+
+- Debugger: The debugger now can debug SOAP services
+- Debugger: The debugger uses now the same php classes as the rest of the code, instead of using the phpxmlrpc library
+
+*Bugfixes:
+
+- Client: Make sure debug info is reset in phpsoapclients when a call fails at the wsdl retrieval stage
+- Client: Make sure that client respects timeout when not in CURL mode (added a new error code for that case)
+- Client: Make sure that client respects timeout when in CURL mode
+- Client: Do not send an Accept-Encoding header when it's empty
+- Client: Allow usage of curl with compressed responses - do not try to inflate them twice
+- Client: Force usage of curl when ssl transport not registered for streams
+- Client: Fix method ggWebservicesRequest::addParameters
+
+*Incompatible changes
+
+- the protected variable $Cookies is not populated in the client automatically with cookies received by the server
+- the debugger does not allow anymore to enter plaintext for the webservice payload (request body)
+- the client defaults to checking SSL peer certificate (but this can be disabled via a setOpt call)
+- the phpxmlrpc library inclusion is considered DEPRECATED; the lib will be removed in some future release

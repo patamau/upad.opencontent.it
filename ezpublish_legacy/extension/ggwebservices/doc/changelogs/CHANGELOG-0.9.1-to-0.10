@@ -1,0 +1,27 @@
+Changes from 0.9.1 to 0.10 - released 2011/10/30
+
+*General:
+
+- client now accepts all 20x http reponse codes, to make it more REST compliant
+- REST client can now send requests with a body encodes as json (or php) instead of urlencoding it
+- REST support available in the debugger
+
+*Bugfixes:
+
+- results from some SOAP services would not be usable in template code when using ggPhpSOAPClient
+- results serialized as XML would not be usable in template code when using ggRESTClient
+
+*Incompatible changes
+
+- when querying REST services that return XML data, an object of class ggSimpleTemplateXML
+  is returned instead of one of class SimpleXML.
+  This has the advantage of being usable in template code, the former was not.
+  If you prefer to work with the SimpleXML, just call $value->toSimpleXML().
+
+- ggPhpSOAPClient::send() now returns php arrays instead of StdClass objects.
+  This makes its behaviour the same as the one of ggSOAPClient::send(), and makes
+  it easy to use it in template code.
+  To turn this behaviour off for a specific server, set "Options[returnArrays]=0" for it
+  either in wsproviders.ini or in the $options argument in the ggeZWebservicesClient::call method call
+
+- method ggeZWebservicesClient::send is deprecated and will be removed at some point in the future

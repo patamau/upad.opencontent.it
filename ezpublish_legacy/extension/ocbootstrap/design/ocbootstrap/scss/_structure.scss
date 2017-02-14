@@ -1,0 +1,33 @@
+
+.nav-section,
+.nav-facets{
+  @extend .col-sm-3;
+}
+
+.content-main{
+  @extend .col-sm-9;
+  &.wide{
+    @extend .col-sm-12;
+  }
+  .full-stack &{
+    @extend .col-sm-6;
+  }
+}
+
+.content-related{
+  @extend .col-sm-3;
+}
+
+
+
+.figure{
+    @extend .text-center;
+    img{
+        @extend .center-block;    
+    }
+    margin: 1em 0;
+}
+
+.social-buttons{
+    margin: 1em 0;
+}

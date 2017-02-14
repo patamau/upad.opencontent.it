@@ -1,0 +1,50 @@
+== ATOMI ==
+
+ * L'atomo è un template che renderizza un oggetto o una lista di oggetti.
+ * Non deve esserci logica di fetch degli oggetti
+ * Deve essere riutilizzabile in qualsiasi contenso
+ 
+== PARTS ==
+
+ * In parts ci sono template inclusi da altri template
+
+
+
+
+== NAVIGAZIONE ==
+
+la barra di navigazione principale è strutturata per avere dei dropdown.
+Essendo dropdown, la navigazione al nodo principale è garantita con un duplicato all'interno dell'elemento
+.dropdown-menu (<li><a href="LINK-NODO">Overview</a></li>)
+
+<li class="dropdown">
+  <a href="LINK-NODO" class="nav-parent">NOME-NODO</a>
+  <a data-toggle="dropdown" class="dropdown-toggle" href="#">NOME-NODO <i class="fa fa-chevron-down"></i></a>
+  <ul class="nav dropdown-menu">
+    <li><a href="LINK-NODO">Overview</a></li>
+    <li id="node_id_563108"><a href="/debug/Chi-siamo/Test-forum">Test forum</a></li>
+    <li id="node_id_563111"><a href="/debug/Chi-siamo/Test-Blog">Test Blog</a></li>
+    <li id="node_id_12535"><a href="/debug/Chi-siamo/I-nostri-soci">I nostri soci</a></li>
+    <li id="node_id_502596"><a href="/debug/Chi-siamo/Patto-di-sistema">Patto di sistema</a></li>
+  </ul>
+</li>
+
+Se si vuole mantenere dropdown solo su risoluzioni basse, è necessario modificare style.scss come segue:
+
+.nav-main{
+  .navbar-collapse.in{
+    overflow-y: visible !important;
+  }
+  .dropdown-toggle{
+    @extend .hidden-sm;
+    @extend .hidden-md;
+    @extend .hidden-lg;
+  }
+  .nav-parent{
+    @extend .hidden-xs;
+  }
+  ...
+  ...
+
+Il nodo .nav-parent (<a href="LINK-NODO" class="nav-parent">NOME-NODO</a>) è ancora una volta un duplicato
+che se si vuole solo dropdown anche su schermi grandi può essere cancellato da html o nascosto da css (default)

@@ -1,0 +1,38 @@
+.table-calendar { width: 100%; border-collapse: collapse; border-spacing: 0; }
+
+.table-calendar th { text-align: left; }
+.table-calendar th span { display: none; }
+
+.table-calendar tr { display: block; }
+.table-calendar td,
+.table-calendar th { display: none; }
+.table-calendar .events { display: block; }
+.table-calendar ul { display: block; list-style: none; margin: 0; padding: 0; }
+.table-calendar li { display: block; position: relative; margin: 0; padding: 0; }
+.table-calendar .not-in-current-month { display: none; }
+
+
+@media only screen and (min-width: 40em) {
+
+    .table-calendar { font-size: 0.875em; line-height: 1.25em}
+    .table-calendar tr { display: table-row; }
+    .table-calendar th, .table-calendar td { display: table-cell !important; margin: 0; width: 14.2857%; padding: 0.4166em; vertical-align: top; }
+    .table-calendar td { height: 10em; }
+    
+    .table-calendar .not-in-current-month { background: #eee; }
+    .table-calendar .not-in-current-month .day { color: #bbb; }
+    
+    .table-calendar td .day { display: block; float: left; margin: 0; font-weight: normal; }
+    .table-calendar td .day-of-week { display: none; }
+    .table-calendar td .suffix { display: none; }
+    
+    .table-calendar td {border-bottom: 1px solid #ccc; border-right: 1px solid #ddd }
+    .table-calendar td.last_col {border-right:none}
+    .table-calendar tr.last_row td {border-bottom:none}
+    
+    .table-calendar .day { margin: 1em 0 .5em 0; font-weight: bold; font-size: 1em; }
+    .table-calendar ul { margin: 0 0 0 2em; }
+    .table-calendar li {height: 1.8em;}
+    .table-calendar li a { display: block; position: absolute; left: 0; right: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;  }
+    
+}

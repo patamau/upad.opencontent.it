@@ -1,0 +1,47 @@
+Changes from 0.13 to 0.14 - released 2013/7/20
+
+NB: new php classes added. Please regenerate autoloads when upgrading!
+
+*Added:
+
+- compatibility with the eZ Publish REST API v2!
+  Implemented both in the php layer and in the debugger (using REST type).
+  For best results, use the json variant of all the calls for now.
+
+- make the webservices/execute view respect ValidateClientIPs even when server
+  is behind a reverse proxy (needs eZP 4.5 or later and config in site.ini)
+
+- debugger always displays status code, charset, content-type for all execute calls (REST first!)
+
+- all the response classes now save http headers in $this->headers() when decoding
+  a payload. This makes it easier to execute further processing, eg. support custom
+  authentication schemes
+
+- methods ggWebservicesClient::getOption() and ggWebservicesClient::availableOptions()
+
+- new methods in class ggRESTRequest to set Accept header, or any custom header for that matter
+
+- example code to interact with eZPublish REST API v2 in doc/samples
+
+- the template fetch function webservices/call has a new parameter. When set, the response object
+  is returned instead of just the data
+
+* Changed
+
+- REST requests will happily receive a plaintext or html response without trying to decode it.
+  This makes it easier to use them for interacting with sites (posting to forms etc)
+
+- ggWebservicesClient::setOptions throws an exception when trying to set an invalid option
+
+- it is possible that, when servers do not specify it, the charset of a response now defaults to empty whereas it defaulted to UTF-8 before
+
+*Bugfixes:
+
+- avoid strict errors with eZP5 LS
+
+- make the debugger work correctly when testing the current server by using the
+  admin siteaccess and plain php session handler
+
+- all types of responses properly set their content-type, status code and charset on decoding
+
+- debugger: only allow user to set content type when request has a body

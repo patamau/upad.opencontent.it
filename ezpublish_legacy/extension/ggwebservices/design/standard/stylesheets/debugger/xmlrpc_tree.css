@@ -1,0 +1,146 @@
+/**
+* More css formatting for xmlrpc nested trees and value editing.
+*
+* Extends tree.css, container.css from YUI lib
+*
+* @author G. Giunta
+* @license code licensed under the GPL License: see LICENSE file
+* @todo fix word-wrapping of node contents for not-quite-wide-enough windows
+*/
+
+
+/* nodes for buliding a tree of xmlrpc values */
+
+.ygtvlabel, .ygtvlabelu, .ygtvlabeln, .ygtvlabelt, .ygtvlabeltu, .ygtvlabel:hover {
+  font: normal 12px verdana, sans-serif;
+  vertical-align: top;
+  margin-left:4px;
+}
+
+.ygtvlabel, .ygtvlabeln, .ygtvlabelu, .ygtvlabel:hover {
+  font-weight: bold;
+}
+
+.ygtvlabeln {
+}
+
+.ygtvlabelt {
+    color: blue;
+}
+
+.ygtvlabeltu {
+    color: red;
+}
+
+.ygtvlabelu {
+    color: red;
+}
+
+.ygtvmvup {
+	width:16px; height:22px;
+	background: url(../../images/debugger/expandh.gif) 3px 5px no-repeat;
+}
+
+.ygtvmvuph {
+	cursor:pointer ;
+	width:16px; height:22px;
+	background: url(../../images/debugger/expandon.gif) 3px 5px no-repeat;
+}
+
+.ygtvmvupn {
+	width:16px; height:22px;
+	background: url(../../images/debugger/expand.gif) 3px 5px no-repeat;
+}
+
+.ygtvmvdown {
+	width:16px; height:22px;
+	background: url(../../images/debugger/collapseh.gif) 3px 5px no-repeat;
+}
+
+.ygtvmvdownh {
+	cursor:pointer ;
+	width:16px; height:22px;
+	background: url(../../images/debugger/collapseon.gif) 3px 5px no-repeat;
+}
+
+.ygtvmvdownn {
+	width:16px; height:22px;
+	background: url(../../images/debugger/collapse.gif) 3px 5px no-repeat;
+}
+
+.ygtvmvdel {
+	width:16px; height:22px;
+	background: url(../../images/debugger/rm.gif) 0 0 no-repeat;
+}
+
+.ygtvmvdelh {
+	cursor:pointer ;
+	width:16px; height:22px;
+	background: url(../../images/debugger/rmh.gif) 0 0 no-repeat;
+}
+
+.ygtvmvdeln {
+	width:16px; height:22px;
+	/*background: url(../../images/debugger/rmn.gif) 0 0 no-repeat;*/
+}
+
+.ygtvmvadd {
+	width:16px; height:22px;
+	background: url(../../images/debugger/add.gif) 0 0 no-repeat;
+}
+
+.ygtvmvaddh {
+	cursor:pointer ;
+	width:16px; height:22px;
+	background: url(../../images/debugger/addh.gif) 0 0 no-repeat;
+}
+
+.ygtvmvaddn {
+	width:16px; height:22px;
+	/*background: url(../../images/debugger/addn.gif) 0 0 no-repeat;*/
+}
+
+.ygtvmvedit {
+	width:16px; height:22px;
+	background: url(../../images/debugger/edit.gif) 0 0 no-repeat;
+}
+
+.ygtvmvedith {
+	cursor:pointer ;
+	width:16px; height:22px;
+	background: url(../../images/debugger/edith.gif) 0 0 no-repeat;
+}
+
+.ygtvmveditn {
+	width:16px; height:22px;
+	/*background: url(../../images/debugger/editn.gif) 0 0 no-repeat;*/
+}
+
+/* tooltips */
+
+.tt {
+	font: 75% sans-serif;
+}
+
+.bd label {
+
+}
+
+/* panel for editing xmlrpc values */
+.bd input {
+	width: 200px;
+}
+
+.bd select {
+	width: 204px; /* pixel perfect with ff2 on win xp... */
+}
+
+.bd label {
+	display: block;
+	float: left;
+	width: 75px;
+}
+
+.bd .clear {
+	height: 5px;
+}

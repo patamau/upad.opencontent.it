@@ -1,0 +1,140 @@
+/* =typography
+-------------------------------------------------
+*/
+
+a.logo{
+  display: block;
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* =typography
+-------------------------------------------------
+*/
+
+.abstract{
+  margin-bottom: $line-height-computed;
+  font-size: floor(($font-size-base * 1.15));
+  font-weight: 200;
+  line-height: 1.4;
+}
+
+small.date{
+    display: block;
+}
+
+/* =nav-main
+-------------------------------------------------
+*/
+
+.nav-main{
+  .navbar-collapse.in{
+    overflow-y: visible !important;
+  }
+  //.dropdown-toggle{        /* disable these rules      */
+  //  @extend .hidden-sm;    /* to have a full           */
+  //  @extend .hidden-md;    /* dropdown menu            */
+  //  @extend .hidden-lg;    /* also on sm,md,lg screens */
+  //}
+  .nav-parent{
+    display: none;      /* enable this to have full dropdown     */
+    //@extend .hidden-xs;   /* disable this to have full-dropdown        */
+  }
+
+  .dropdown-toggle i{
+    float: right;
+  }
+
+  .open{
+    .dropdown-toggle i.fa-chevron-down{@extend .fa-chevron-up;}
+  }
+}
+
+/* =nav-tools
+-------------------------------------------------
+*/
+
+.nav-tools{
+  &.navbar-default{
+    background-color: transparent;
+    border: none;
+  }
+  #login .panel{
+    background-color: $navbar-default-link-active-bg !important;
+    padding: 10px;
+    z-index: 1200;
+    @media (min-width: $screen-sm-min){
+      width: 280px !important;
+    }
+  }
+}
+/* =nav-section
+-------------------------------------------------
+*/
+
+.nav-section{
+  li a{
+    border-bottom: 1px solid $gray-lighter;
+  }
+  @extend .hidden-xs;
+  .nav-sub{
+    @extend .nav;
+    > li > a{
+      padding-left: 2em;
+    }
+  }
+}
+
+/* =nav-facets
+-------------------------------------------------
+*/
+
+.nav-facets{
+  h2{font-size: $font-size-base;}
+  .nav-sub{
+    @extend .nav;
+  }
+}
+
+@media only screen and (max-width: 640px){
+  .nav-facets{
+    position: relative;
+    .facet-list{
+      display: inline-block;
+      h2{}
+      .nav-sub{
+        background-color: $gray-lighter;
+        position: absolute;
+        list-style: none;
+        height: 100px;
+        overflow: auto;
+        width: 100%;
+        padding: 0 !important;
+        top: 20px;
+        left: 0;
+        z-index: 1000;
+      }
+
+    }
+  }
+}
+/*
+@media only screen and (max-width: 767px){
+  .nav-facets{
+    .nav-sub{
+      list-style: none;
+      height: 100px;
+      overflow: auto;
+      padding: 0 !important;
+    }
+  }
+}
+*/
+
+/* =image-gallery
+-------------------------------------------------
+*/
+
+.blueimp-gallery{display:none}

@@ -1,0 +1,1 @@
+{include uri="design:content/search.tpl" phrase_search_text=$phrase_search_text}

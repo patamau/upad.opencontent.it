@@ -1,0 +1,144 @@
+Roughly sorted by priority:
+
+- allow users to specify more options for $.jsonrpc (same as Y.io.jsonrpc does)
+
+- add a better version of ezwsclient::send() that does not wrap response in an array
+
+- make sure we convert charsets where possible / do not break json/xml decoding in responses because of it
+
+- add support for http redirects when using the http1.0 client
+
+- add url parsing (both in/out) for rest where parameters are in path instead of query string
+
+- doc comparing ez soap support to ggphpsoap support
+
+- doc w. feature list
+
+- add to ggeZWebservices some methods to derive class names from protocol and viceversa (esp. for phpsoap)
+
+- look into using guzzle for http layer (reimplement ggWebservicesClient::send and company)
+
+- soap calls: implement returning something where end user can distinguish between an array and an object, at least from tpl layer
+
+- client: implement oauth 2 client capabilities
+
+- client: test POST, PUT, DELETE, HEAD methods for REST client:
+  + when not to put any payload? currently get/head, but should eb true for delete too
+  + if nameVar is given, when doing POST/PUT/DELETE calls, keep the method name in the url or put it in the payload?
+
+- test proper support for cdata section, entities, in ggSimpleTemplateXML
+
+- replace method(), setmethod(), setOptions('method') with corresponding 'verb' ? clarify / unify this naming conundrum
+
+- client: implement per-server fixed parameters, useful for eg. rest client where the type=json is more or less fixed
+  + test if it works already by simply putting query string in server url in ini file
+
+- support for wssecurity
+
+- implement ...?wsdl url pattern as alternative to ..../wsdl
+
+- server: improve soap server w. wsdl support
+  + proper parsing of called function name from xml (not from soapaction http header)
+  + use reflection for generating wsdl if user did not provide any type info
+  + finish use of reflection for generating wsdl for plain  (non-ezpo) classes: derive property type from phpdoc
+  + test: will ezpo subclasses actually serialize properly when using ggphpsoapserver or do we need to define type maps?
+  + build proper xsd for methods that are registered with many signatures (as it is done eg. in xmlrpc to have optional params)
+  + allow method signatures that contain choices between non-simple types (eg: eZDB | eZDBInterface )
+  + test recursive type defs (array of array of int)
+  + verify support for 'null' php type
+  + allow de-inlining of included xsd via view parameter
+    + try to mitigate "dos attack" when user goes to .../webservices/wsdl/(view)/html and there is some ezpo class in the wsdl (xslt goes in a loop or close to it)
+  + verify proper namespace usage in out-of-line-xsd
+  + soap 1.2 support (needs php resp class to have 1.2 serialization first)
+  + wsdl 2.0 support
+  + in wsdl 2.0, add more binding descriptions (rest, xmlrpc, ...)
+
+- soap server: usage of proper soap error codes: VersionMismatch, MustUnderstand, Client, Server (see http://www.w3.org/TR/2000/NOTE-SOAP-20000508/#_Toc478383510)s
+
+- server: add a soap controller based on ggphpsoap + webservicescontroller.php (instead of ezsoap)
+
+- client: test: using CURL and proxy / complex auths works?
+  + prevent curl from adding useless "accept: */*" header
+  + test: bug using curl+compress request+soap call to ms servers
+
+- client: test https support with and without curl, with and without proxy too
+
+- add to the base client:
+  + automatic cookie support
+  + send($array) with keepalive (both curl & by hand)
+  + rebuilding of $_POST for compressed requests containing form data
+  + more ssl options (and in debugger too)
+
+- client: add to ezwsclient support for proxy auth type, proxy conf via options[] (and in debugger too)
+
+- client: return more specific error codes than ERROR_BAD_RESPONSE when decoding response fails
+
+- client: allow usage of different patterns for call();
+  . throw exception on errors instead of returning response object
+  . return response objects even on http errors (?)
+
+- add even more client samples, eg. to call webservices on facebook, youtube, amazon, google
+
+- in debugger:
+  + use templates for output of action.php
+  + add siteaccess choice for local server on the left-hand col (nb: looks like getting correct urls for other sa is quite hard... langswitcher does it for nodes only?)
+  + allow to hide/show client's options
+  + improve layout (eg. 1st line, visualeditor space on top, add admin2 tpl for left menu with resizing handle, etc...)
+  + allow picking preferred content-type for responses when using ezjscore, same as done for rest
+  + investigate fatal errors in soap client, wsdl mode, when parsing a non-wsdl page (they should be caught as exceptions except they're not)
+  + allow to create sample ini block for current server; also sample tpl/php code for current call
+  + ezjscore methods: improve parsing of phpdoc comments to get signature
+  + test fix 4 bug: "url for local server in debugger is wrong when using forcevhost w.out rewriting rules (also without forcevhost?)"
+  + parse all Options from wsproviders.ini for loading remote server config from left col (some are not yest supported)
+
+- add jsonrpc 2.0 support (both client and server)
+
+- add support for xmlrpc datatypes base64 and datetime (check if it works when using plain php classes)
+
+- server: add a script that creates initialize.php from a wsdl file
+
+- add some doc showing the client/request/response and server/request/response interaction to make it easier to remember that requests are also used server-side (and responses client-side)
+
+- server: add 'plain' xml format to REST server output. see eg http://snipplr.com/view/3491/convert-php-array-to-xml-or-simple-xml-object-if-you-wish/
+  or http://svn.php.net/viewvc/pear/packages/XML_Serializer/trunk/XML/Serializer.php?revision=294967&view=markup
+  Also finish support for php/phps (parsing of Accept header)
+
+- server: test support for calling ezjscore and plain-registered methods with index_ajax controller; test again custom controller too
+
+- add siteaccess limitation to proxy view
+
+- verify js changes in Y.io.ez from 1.0.0 to 1.5.0 and merge in Y.io.jsonrpc
+  + test loading Y.io.ez from Yui in eZP 4.4 up to 4.7
+
+- debugger: use ezjscore to load yui 3 in debugger <= upgrade debugger to yui2in3
+
+- server: test module view that does ws execution (memory, time) vs. using jsonrpc.php vs. index_ajax.php
+
+- add some friendly method as replacement for ggeZWebservicesClient::send
+
+- finish proxy module
+  => add soap support. Need to create a new soap server class, too?
+  => add POST/PUT/DELETE (rest) support. Need to create a new server class, too? nb: could do with basically json/php serialized/ encoding of results (see solr-supported formats too)
+  => add fine-grained policy control with per_server_per_method limitations (this one needs server to support listMethods() call), possibly per_siteaccess?
+  => move it away from usage of ggeZWebservicesClient::send() method
+
+- server: allow ws controllers to operate in no-session mode (useful? since 4.4 whole of eZ can be sessionless)
+
+- server: add a new controller file capable to do multi-protocol requests
+  + make it also compatible with ezsjcore
+
+- server: add optional extended logging of received ws calls and outgoing responses (use ezdebugsettings or a custom log file?)
+
+- lobby ezjscore to provide list of exposed methods, api docs
+
+- server: improve input parameter type validation
+
+- server: add a compatibility layer to import webservices designed for ezrest too
+
+- debugger: add js-based debugger for calls to local server
+
+- add a testsuite (eg. to test all the error codes after shuffling them around)
+
+- allow extension ro run on phpxmlrpc/phpjsonrpc/nusoap if php extensions are missing
+
+- client: add support for curl multi calls to execute multiple calls in parallel

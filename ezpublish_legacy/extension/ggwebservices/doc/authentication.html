@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="generator" content="eZ Components; http://ezcomponents.org" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style type="text/css">body {
+	background-color: #ffffff;
+	color: #2e3436;
+	font-family: sans-serif;
+}
+
+a {
+	color: #3456a4
+}
+
+a:hover {
+	color: #729fcf;
+}
+
+a:visited {
+	color: #204a87;
+}
+
+a.footnote {
+	vertical-align: super;
+}
+
+p {
+	margin: 0.5em 0em 1em 0em;
+}
+
+hr {
+	background-color: #204a87;
+	border: none;
+	height: 1px;
+}
+
+pre {
+	background-color: #eeeeef;
+	font-family: monospace;
+}
+
+table {
+	border: 1px solid #babdb6;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+thead td,
+thead th {
+	background-color: #eeeeef;
+	text-align: center;
+	font-weight: bold;
+}
+
+tbody td {
+	border: 1px solid #babdb6;
+}
+
+blockquote p:before,
+blockquote p:after {
+	content: '"';
+}
+
+blockquote p {
+	margin-bottom: .5em;
+}
+
+blockquote cite {
+	margin-left: 1em;
+	color: #555753;
+}
+
+div.image,
+div.figure {
+	margin: 1em;
+	padding: 1px;
+	border: 1px solid #babdb6;
+}
+
+div.image img,
+div.figure img {
+	margin: 0px auto;
+}
+
+div.image p,
+div.figure p {
+	margin: 0em;
+	font-size: 90%;
+	color: #555753;
+}
+
+p.note {
+	margin-left: 2em;
+	padding: .2em;
+	border: 1px solid #8ae234;
+}
+
+p.notice {
+	margin-left: 2em;
+	padding: .2em;
+	border: 1px solid #4e9a06;
+}
+
+p.warning {
+	margin-left: 2em;
+	padding: .2em;
+	border: 1px solid #ce5c00;
+}
+
+p.attention {
+	margin-left: 2em;
+	padding: .2em;
+	border: 1px solid #a40000;
+}
+
+p.danger {
+	margin-left: 2em;
+	padding: .2em;
+	border: 2px solid #a40000;
+}
+</style><title>Dealing with authentication when exposing webservices</title></head><body><h1><a name="dealing_with_authentication_when_exposing_webservices" id="dealing_with_authentication_when_exposing_webservices"></a>Dealing with authentication when exposing webservices</h1><p>Neither XMLRPC, nor JSONRPC or REST protocols specify authentication/authorization methods.</p><p>There are different possibilities for configuring acess control to webservices implemented by this extension. Here is a short introduction.</p><h2><a name="authorization" id="authorization"></a>Authorization</h2><p>Authorization is managed via the standard "Roles &amp; Policies" subsystem.</p><ul><li><p>Every user group can be given access to the webservices/execute access function, with limitations on every webservice method defined</p></li><li><p>A second limitation which can be used when creating a policy for webservices/execute is relative to the siteaccess used when calling the service. This is useful if you want to dedicate a siteaccess exclusively to exposing webservices, and protect it via https, http authorization (basic or digest) or other means</p></li><li><p>There is no explicit support to deny access to a given service when using a specific protol, while allowing access for other protocols. In other words: if method "ezp.authandexec" is available for both jsonrpc and xmlrpc calls, a user can either access it using both protocols or not at all. The simple workaround is not to declare the method in the initialize.php file for a given protocol.</p></li><li><p>A "master switch" is used to enable/disable individually access via any of the supported protocols. It is found in wsproviders.ini, section <code>GeneralSettings</code>. Note that by default when activating this extensions 3 protocols are activated: xmlrpc, jsonrpc and rest</p></li><li><p>Access to the webservices/proxy view can only be limited based on the remote servers which are proxied, e.g. one role might be given rights to access the services on flickr and another the services on twitter</p></li></ul><h2><a name="authentication" id="authentication"></a>Authentication</h2><p>Different configurations are possible</p><ol><li><p>anon auth: easy peasy. Giving access to exposed webservices to Anonymous role is done via the Administration Interface</p></li><li><p>anon auth + within-call credentials: the webservice "ezp.authandexec" allows the caller to add username+password inside the payload, and wrap in this call the call to the actual method. This forces the client to send username+pwd on every request, just like "http basic auth"; it does not need the client to manage session cookies</p></li><li><p>session-based auth: uses a standard ezp session based on cookies. This is most practical for clients based on browser-technology, i.e. ajax calls Note: no specific webservice is provided to initiate the session and get back the cookie</p></li><li><p>IP-based auth: when enabled, it blocks calls coming from IP addresses not whitelisted. It can of course be complemented with a blanket anon-auth configuration to allow calls from any client connecting from a given IP</p></li><li><p>basic auth, digest auth: these can be configured in the webserver itself, and the extension does not mingle with it. Same with https.</p><p>If you are now asking yourself the very interesting question: "but... can I let Apache enforce Basic authentication and still use the logins/passwords of eZPublish user accounts to manage fine-grained authorization?" Then rejoyce because the answer is Yes! In order to have Apache enforce Basic authentication and connect it to eZ Publish user accounts, you just need the ezapacheauth extension, from <a href="http://projects.ez.no/ezapacheauth">http://projects.ez.no/ezapacheauth</a></p></li><li><p>oauth is not supported. Look at the native REST support of eZ Publish if you need it</p></li></ol></body></html>

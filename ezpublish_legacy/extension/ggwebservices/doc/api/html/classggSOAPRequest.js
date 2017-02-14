@@ -1,0 +1,25 @@
+var classggSOAPRequest =
+[
+    [ "__construct", "classggSOAPRequest.html#aae881d89d0e68223614b426df871af4c", null ],
+    [ "contentType", "classggSOAPRequest.html#a4ed3334553816f038bd6a54f47076ade", null ],
+    [ "decodeStream", "classggSOAPRequest.html#aa70adfcfcdc30c54248c19930cea2bbe", null ],
+    [ "encodeValue", "classggSOAPRequest.html#af7c64dfdfdcf0a7fc5b6cfb68a7565a2", null ],
+    [ "getSoapVersion", "classggSOAPRequest.html#a3acaca18b4d70f0fff206ffe94a79979", null ],
+    [ "ns", "classggSOAPRequest.html#a3a2f9e9242dbdea6cfba63d89b59b70a", null ],
+    [ "payload", "classggSOAPRequest.html#ae90b7b76b36a563d62e9ba04eab349be", null ],
+    [ "requestHeaders", "classggSOAPRequest.html#a8107063b564162375b42517c6167dc3e", null ],
+    [ "setNamespace", "classggSOAPRequest.html#adc9abda130957e1ae0a691ea9f9dcc75", null ],
+    [ "setSoapVersion", "classggSOAPRequest.html#aed236ee592fb42369508d76825ed03db", null ],
+    [ "$ns", "classggSOAPRequest.html#ab1e13193872844a88ec6f6f825424dab", null ],
+    [ "$SoapVersion", "classggSOAPRequest.html#aab30bf03d411787af787de1a6a1e522b", null ],
+    [ "$Verb", "classggSOAPRequest.html#a7f80b2d874a9ff5a4fefe570a835f57d", null ],
+    [ "ENC", "classggSOAPRequest.html#a4d42c3bfa5d05abb9cb99496a37a545e", null ],
+    [ "ENC_PREFIX", "classggSOAPRequest.html#aa44b8c986706b9caadaca90e3d505bf6", null ],
+    [ "ENV", "classggSOAPRequest.html#a9da2d1b526c7f48ef494b703312e19ac", null ],
+    [ "ENV_PREFIX", "classggSOAPRequest.html#a5d53c6e831c47a2ce3f29d51c39c9a56", null ],
+    [ "REQ_PREFIX", "classggSOAPRequest.html#ad9cbc978661ed1a71f2aa651eb69e997", null ],
+    [ "SCHEMA_DATA", "classggSOAPRequest.html#a7398368ecba49a8190a7374b0eb45cd1", null ],
+    [ "SCHEMA_INSTANCE", "classggSOAPRequest.html#a8569450c51e2413d2080c2adb2a74ed9", null ],
+    [ "XSD_PREFIX", "classggSOAPRequest.html#aa3574a712919908498490e77e928508b", null ],
+    [ "XSI_PREFIX", "classggSOAPRequest.html#a5167a5500f0b04914da407228dbf2557", null ]
+];

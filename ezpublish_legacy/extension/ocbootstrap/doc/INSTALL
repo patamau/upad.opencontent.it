@@ -1,0 +1,26 @@
+OpenContent OCBootstrap
+=======================
+
+ * Controllare dipendenze (vedi extension.xml)
+
+ * Clonare l'estensione in ezpublish_legacy/extension/ocbootstrap con
+
+git clone ssh://developer@devapache.opencontent.it:222/home/git/ocbootstrap
+
+ * Attivare l'estensione *solo* nel siteaccess/<sa>/site.ini.append.php di frontend
+
+[ExtensionSettings]
+ActiveAccessExtensions[]=ocbootstrap
+
+[DesignSettings]
+SiteDesign=ocbootstrap_<nome_design_dedicato_che_estende_ocbootstrap>
+AdditionalSiteDesignList[]
+AdditionalSiteDesignList[]=ocbootstrap
+AdditionalSiteDesignList[]=base
+AdditionalSiteDesignList[]=standard
+
+ * Copiare i setttings/*move_to* nei folder dedicati
+
+ * Disattivare ezdemo e/o ezwebin
+
+ * Svuotare tutte le cache

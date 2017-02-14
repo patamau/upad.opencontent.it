@@ -1,0 +1,36 @@
+OpenContent Operators Collection
+================================
+
+1) appini: interroga il file di configurazione app.ini
+Funziona come ezini ma aggiunge il terzo parametro, che è un valore di default
+
+{appini( <block>, <setting> [, <default>] )}
+
+esempio:
+{appini( 'NodeSettings', 'TopMenuNodes' , array( 123, 124, 125 ) )}
+
+
+
+2) include_cache: include un template con un livello di cache aggiuntivo
+
+//@todo!
+
+
+
+3) set_defaults: imposta le variabili di default in un atomo
+Attenzione: l'atomo va incluso senza namespace
+
+set_defaults(  hash(  'nome', 'valore' ) )
+
+FULL
+{include uri=atom list=array()}
+
+ATOM
+{set_defaults(  hash( list, array(1,2,3) ) )}
+
+
+
+4) has_attribute/attribute
+
+{if and( is_set( $node.data_map.test ), $node.data_map.test.has_content )} => {if $node|has_attribute( 'test' )}
+{$node.data_map.test}  => {$node|attribute( 'test' )}
