@@ -82,6 +82,7 @@
 </section>
 
     <aside class="col-lg-3 col-md-3 col-sm-4 m_xs_bottom_30">
+    	{*
       <figure class="widget shadow r_corners wrapper m_bottom_30">
         <figcaption>
             <h3 class="color_light">Cerca per nome</h3>
@@ -93,9 +94,9 @@
           </form>
         </div>
       </figure>
+      *}
       
-      
-        {*{class_search_form( 'user', hash( 'RedirectUrlAlias', $page_url ) )}*}
+        {class_search_form( 'user', hash( 'RedirectUrlAlias', $page_url ) )}
     </aside>
     
     
