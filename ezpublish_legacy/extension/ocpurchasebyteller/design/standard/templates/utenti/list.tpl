@@ -93,5 +93,10 @@
           </form>
         </div>
       </figure>
+      
+      
+        {*{class_search_form( 'user', hash( 'RedirectUrlAlias', $page_url ) )}*}
     </aside>
+    
+    
 </div>

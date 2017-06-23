@@ -7,6 +7,13 @@ MatchFile=class_search_form/corso.tpl
 Subdir=templates
 Match[class_identifier]=corso
 
+[class_search_form_user]
+Source=class_search_form/class_search_form.tpl
+MatchFile=class_search_form/user.tpl
+Subdir=templates
+Match[class_identifier]=user
+
+
 ################################
 ################################ OCBOOSTRAP NODE
 ################################
