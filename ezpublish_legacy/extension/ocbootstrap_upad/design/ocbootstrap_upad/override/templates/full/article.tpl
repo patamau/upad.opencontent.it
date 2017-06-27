@@ -27,7 +27,9 @@
                     <div class="m_bottom_20 description">
                         {attribute_view_gui attribute=$node|attribute( 'body' )}
                     </div>
-
+                    
+                    <div class="sharethis-inline-share-buttons"></div>
+                    {*
                     <p class="d_inline_middle">Share this:</p>
                     <div class="d_inline_middle m_left_5 addthis_widget_container">
                         <!-- AddThis Button BEGIN -->
@@ -41,6 +43,7 @@
                         <div class="atclear"></div></div>
                         <!-- AddThis Button END -->
                     </div>
+                    *}
                 </div>
             </div>
         </section>
