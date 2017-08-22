@@ -30,7 +30,6 @@
 {foreach $content_attributes_grouped_data_map as $attribute_group => $content_attributes_grouped}
 <div class="clearfix attribute-edit tab-pane{if $count|eq(0)} active{/if}" id="attribute-group-{$attribute_group}">
 {set $count = $count|inc()}
-
 {foreach $content_attributes_grouped as $attribute_identifier => $attribute}
 {def $contentclass_attribute = $attribute.contentclass_attribute}
 <div class="row edit-row ezcca-edit-datatype-{$attribute.data_type_string} ezcca-edit-{$attribute_identifier}">
