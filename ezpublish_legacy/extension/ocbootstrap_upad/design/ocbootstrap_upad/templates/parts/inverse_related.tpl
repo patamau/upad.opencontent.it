@@ -10,8 +10,7 @@
     <h2 class="tt_uppercase color_dark m_bottom_25">{$node.data_map.short_name.content|wash()}</h2>
     {/if}
 
-    {def $reverse_related_objects_count = fetch( 'content', 'reverse_related_objects_count', hash( 'object_id', $node.object.id , 'all_relations', true() ) )}
-
+    {def $reverse_related_objects_count = fetch( 'content', 'reverse_related_objects_count', hash( 'object_id', $node.object.id, 'all_relations', true(), 'group_by_attribute', true(), 'ignore_visibility', false()) )} 
 
     {if $reverse_related_objects_count}
         {include name=navigator
