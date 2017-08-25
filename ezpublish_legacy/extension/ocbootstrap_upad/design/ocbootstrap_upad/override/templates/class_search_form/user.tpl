@@ -18,9 +18,16 @@
                 {* Ricerca semplice *}
                 {include uri='design:class_search_form/query.tpl' helper=$helper input=$helper.query_field}
 
+				{def $additional_fields=array('card')}
+
                 {foreach $helper.attribute_fields as $input}
-                    {attribute_search_form( $helper, $input )}
+                    {if $additional_fields|contains($input.class_attribute.identifier)}
+                    	{attribute_search_form( $helper, $input )}
+                    {/if}
+                    {* add search user by id *}
                 {/foreach}
+                
+                {undef $additional_fields}
                 <li class="t_align_c m_top_20">
                     <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Cerca utente</button>
                 </li>

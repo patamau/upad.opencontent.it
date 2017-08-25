@@ -69,13 +69,13 @@
 				    parent_node_id, 1,
 				    class_filter_type, 'include',
 				    class_filter_array, array( 'subscription' ),
-				    limit, $page_limit,
-				    offset, $view_parameters.offset,
 				    attribute_filter, array(
 					    array( 'subscription/user', '=', $user.id )
 				    ),
+				    limit, $page_limit,
+				    offset, $view_parameters.offset,
 				    sort_by, array(
-					    array( 'published', true() )
+					    array( 'published', false() )
 				    )
 			    )
 		    )
@@ -83,17 +83,27 @@
 	    $subscriptions_count = fetch(
 		    'content', 'tree_count', hash(
 			    parent_node_id, 1,
+			    class_filter_type, 'include',
+			    class_filter_array, array( 'subscription' ),
 			    attribute_filter, array(
 				    array( 'subscription/user', '=', $user.id )
-			    ),
-			    class_filter_type, 'include',
-			    class_filter_array, array( 'subscription' )
+			    )
 		    )
 	    )
 	    $count = sum($view_parameters.offset, 1)
     }
 
-	{include uri="design:parts/card_verify.tpl" subscriptions=$subscriptions}
+	<div class="tab-content">
+	<div class="clearfix attribute-edit tab-pane active">
+	<div class="row edit-row ezcca-edit-datatype-ezstring ezcca-edit-valid">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+				{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text edit=true()}
+            </div>
+    </div>
+    </div>
+    </div>
 
     <h2>Lista ricevute tesseramenti</h2>
 

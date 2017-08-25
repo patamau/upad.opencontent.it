@@ -23,14 +23,34 @@
                         <td>{$attribute.contentclass_attribute_name}</td>
                         <td><strong class="color_dark">{attribute_view_gui attribute=$attribute}</td>
                     </tr>
+                    {if eq($attribute.contentclass_attribute_identifier,'card')}
+                    <tr>
+                    	<td></td>
+                    	<td>{include uri="design:parts/card_verify.tpl" subscriptions=$subscriptions card_id=$user.data_map.card.data_text}</td>
+                    </tr>
+                    {/if}
                 {/foreach}
                 </tbody>
             </table>
         </div>
+        
+        {* pulsante per accedere direttamente alla modifica utente *}
+        <div class="clearfix">
+        	{def $where=concat( 'content/edit/', $user.object.id, '/f/', $user.object.default_language )|ezurl('no')}
+        	<input type="button" class="btn btn-lg btn-warning center-block" value="Modifica" onclick="redirect('{$where}');"/>
+			{literal}
+			<script type="text/javascript">
+			    function redirect(where)
+			    {
+				    window.open(where, '_self');
+			    };
+		    </script>
+		    {/literal}
+		    {undef $where}
+        </div>
     </div>
 
     <hr/>
-
     {def $page_limit = 50
     $subscriptions = fetch(
     'content', 'tree', hash(
