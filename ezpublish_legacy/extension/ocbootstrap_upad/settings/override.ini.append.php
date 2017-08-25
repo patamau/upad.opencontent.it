@@ -18,6 +18,11 @@ MatchFile=class_search_form/user.tpl
 Subdir=templates
 Match[class_identifier]=user
 
+[full_csv]
+Source=node/view/csv.tpl
+MatchFile=full/csv_user.tpl
+Subdir=templates
+Match[class_identifier]=user
 
 ################################
 ################################ OCBOOSTRAP NODE
@@ -456,6 +461,5 @@ Source=content/datatype/view/ezxmltags/link.tpl
 MatchFile=embed/link_download.tpl
 Subdir=templates
 Match[classification]=download
-
 
 */ ?>

@@ -37,16 +37,21 @@
         {* pulsante per accedere direttamente alla modifica utente *}
         <div class="clearfix">
         	{def $where=concat( 'content/edit/', $user.object.id, '/f/', $user.object.default_language )|ezurl('no')}
-        	<input type="button" class="btn btn-lg btn-warning center-block" value="Modifica" onclick="redirect('{$where}');"/>
-			{literal}
+        	{def $button_str = "Modifica"} {*localizza!*}
+        	<input type="button" class="btn btn-lg btn-warning center-block" value="{$button_str}" onclick="redirect('{$where}','_self');"/>
+		    {set $button_str = "Esporta CSV"} {*localizza!*}
+		    {set $where=concat( '/layout/set/csv/content/view/csv/', $user.object.id)|ezurl('no')}
+		    <input type="button" class="btn btn-lg btn-warning center-block" value="{$button_str}" onclick="redirect('{$where}','_blank');"/>
+		    {undef $button_str}
+		    {undef $where}
+		    {literal}
 			<script type="text/javascript">
-			    function redirect(where)
+			    function redirect(where,target)
 			    {
-				    window.open(where, '_self');
+				    window.open(where, target);
 			    };
 		    </script>
 		    {/literal}
-		    {undef $where}
         </div>
     </div>
 
