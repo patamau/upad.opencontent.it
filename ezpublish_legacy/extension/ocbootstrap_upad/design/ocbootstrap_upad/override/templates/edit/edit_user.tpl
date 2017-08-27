@@ -1,5 +1,6 @@
 <div class="container">
 {def $_redirect = false()}
+{*
 {if ezhttp_hasvariable( 'LastAccessesURI', 'session' )}
     {set $_redirect = ezhttp( 'LastAccessesURI', 'session' )}
 {elseif $object.main_node_id}
@@ -7,6 +8,9 @@
 {elseif ezhttp( 'url', 'get', true() )}
     {set $_redirect = ezhttp( 'url', 'get' )}
 {/if}
+*}
+{set $_redirect = concat('/utenti/list/',$object.id)}
+
 
 {def $tab = ''}
 {if and( ezhttp_hasvariable( 'tab', 'get' ), is_set( $view_parameters.tab )|not() )}    
@@ -97,6 +101,7 @@
 	<div class="clearfix attribute-edit tab-pane active">
 	<div class="row edit-row ezcca-edit-datatype-ezstring ezcca-edit-valid">
             <div class="col-md-3">
+            	Validit&agrave; tessera
             </div>
             <div class="col-md-9">
 				{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text edit=true()}
@@ -106,8 +111,19 @@
     </div>
 
     <h2>Lista ricevute tesseramenti</h2>
+    
+    {set $count=0}
+    {foreach $subscriptions as $s}
+    	{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
+        {if $cname|contains('tessera')}
+			{set $count = $count|sum(1)}
+        {/if}
+        {undef $cname}
+    {/foreach}
+    
+    num: {$count}
 
-    {if $subscriptions_count|gt(0)}
+    {if $count|gt(0)}
         <table class="table table-striped m_top_20">
             <tr>
                 <th><strong>#</strong></th>
@@ -122,7 +138,11 @@
                     <td>{$count}</td>
                     <td>{$subscription.object.published|l10n(shortdate)}</td>
                     <td>
+                    	{def $where=concat('courses/list/',$subscription.data_map.course.data_int)|ezurl(no)}
+                        <a href='{$where}' target='course'>
                         {$subscription.data_map.course.content.name|wash()}
+                        </a>
+                        {undef $where}
                     </td>
                     <td>
                         {foreach $subscription.data_map.invoices.content.rows.sequential as $row}
@@ -139,7 +159,6 @@
                 </tr>
                 {/if}
                 {undef $cname}
-                {set $count = $count|sum(1)}
             {/foreach}
         </table>
         {include name=navigator

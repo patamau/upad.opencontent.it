@@ -14,6 +14,12 @@
                 </tbody>
             </table>
         </div>
+        
+{def $user_id=$user.object.id}
+{* hot fix per user id non consistente *}
+{if $user_id|not}
+	{set $user_id=$user.id}
+{/if}
 
         <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
             <table class="description_table m_bottom_5">
@@ -25,8 +31,18 @@
                     </tr>
                     {if eq($attribute.contentclass_attribute_identifier,'card')}
                     <tr>
+                    	<td>Validit&agrave; tessera</td>
+                    	<td>{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text}</td>
+                    </tr>
+                    <tr>
                     	<td></td>
-                    	<td>{include uri="design:parts/card_verify.tpl" subscriptions=$subscriptions card_id=$user.data_map.card.data_text}</td>
+                    	<td>
+						    {def $export_str = "Esporta CSV"} {*localizza!*}
+						    {def $where=concat( '/layout/set/csv/content/view/csv/', $user.main_node_id)|ezurl('no')}
+						    <a href="{$where}" download="{$user_id}.csv" target="_blank" onclick="redirect('','_self')">{$export_str}</a>
+						    {undef $export_str}
+						    {undef $where}
+					    </td>
                     </tr>
                     {/if}
                 {/foreach}
@@ -36,12 +52,9 @@
         
         {* pulsante per accedere direttamente alla modifica utente *}
         <div class="clearfix">
-        	{def $where=concat( 'content/edit/', $user.object.id, '/f/', $user.object.default_language )|ezurl('no')}
+        	{def $where=concat( 'content/edit/', $user_id, '/f/', $user.object.default_language )|ezurl('no')}
         	{def $button_str = "Modifica"} {*localizza!*}
         	<input type="button" class="btn btn-lg btn-warning center-block" value="{$button_str}" onclick="redirect('{$where}','_self');"/>
-		    {set $button_str = "Esporta CSV"} {*localizza!*}
-		    {set $where=concat( '/layout/set/csv/content/view/csv/', $user.object.id)|ezurl('no')}
-		    <input type="button" class="btn btn-lg btn-warning center-block" value="{$button_str}" onclick="redirect('{$where}','_blank');"/>
 		    {undef $button_str}
 		    {undef $where}
 		    {literal}
@@ -65,7 +78,7 @@
     limit, $page_limit,
     offset, $view_parameters.offset,
     attribute_filter, array(
-    array( 'subscription/user', '=', $user.id )
+    array( 'subscription/user', '=', $user_id)
     ),
     sort_by, array(
     array('attribute', true(), 'subscription/annullata'),
@@ -78,7 +91,7 @@
     'content', 'tree_count', hash(
     parent_node_id, 1,
     attribute_filter, array(
-    array( 'subscription/user', '=', $user.id )
+    array( 'subscription/user', '=', $user_id )
     ),
     class_filter_type, 'include',
     class_filter_array, array( 'subscription' )
@@ -103,7 +116,11 @@
                     <td>{$count}</td>
                     <td>{$subscription.object.published|l10n(shortdate)}</td>
                     <td>
+                        {def $where=concat('courses/list/',$subscription.data_map.course.data_int)|ezurl(no)}
+                        <a href='{$where}' target='course'>
                         {$subscription.data_map.course.content.name|wash()}
+                        </a>
+                        {undef $where}
                     </td>
                     <td>
                         {foreach $subscription.data_map.invoices.content.rows.sequential as $row}
@@ -123,7 +140,7 @@
         </table>
         {include name=navigator
         uri='design:navigator/google.tpl'
-        page_uri= concat('courses/list/', $user.id)
+        page_uri= concat('courses/list/', $user_id)
         item_count=$subscriptions_count
         view_parameters=$view_parameters
         item_limit=$page_limit}

@@ -1,1 +1,1 @@
-{$node.object.id},{$node.data_map.first_name.content},{$node.data_map.last_name.content},{$node.data_map.data_nascita.data_text|strtotime()|datetime('custom','%d/%m/%Y')}
+{include uri="design:parts/csv_user.tpl"}{'\r\n'}

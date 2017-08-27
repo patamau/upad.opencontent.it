@@ -44,6 +44,16 @@
                 </form>
             </div>
         </section>
+        
+        <section class='col-lg-12 col-md-12 col-sm-12 m_bottom_30'>
+            <div class=" clearfix">
+                <h2 class="tt_uppercase color_dark m_bottom_25">{'Esportazione utenti tesserati'}</h2>
+				
+				{def $where=concat( 'layout/set/csv/content/view/csv/5')|ezurl('no')}
+                <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a>
+                {undef $where}
+            </div>
+        </section>
     </div>
 </div>
 

@@ -23,6 +23,14 @@ Source=node/view/csv.tpl
 MatchFile=full/csv_user.tpl
 Subdir=templates
 Match[class_identifier]=user
+Match[viewmode]=csv
+
+[csv_userlist]
+Source=node/view/csv.tpl
+MatchFile=full/csv_userlist.tpl
+Subdir=templates
+Match[class_identifier]=user_group
+Match[viewmode]=csv
 
 ################################
 ################################ OCBOOSTRAP NODE
