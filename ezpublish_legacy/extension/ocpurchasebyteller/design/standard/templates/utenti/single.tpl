@@ -32,14 +32,14 @@
                     {if eq($attribute.contentclass_attribute_identifier,'card')}
                     <tr>
                     	<td>Validit&agrave; tessera</td>
-                    	<td>{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text}</td>
+                    	<td>{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text user_id=$user_id}</td>
                     </tr>
                     <tr>
                     	<td></td>
                     	<td>
 						    {def $export_str = "Esporta CSV"} {*localizza!*}
 						    {def $where=concat( '/layout/set/csv/content/view/csv/', $user.main_node_id)|ezurl('no')}
-						    <a href="{$where}" download="{$user_id}.csv" target="_blank" onclick="redirect('','_self')">{$export_str}</a>
+						    <i class="fa fa-download"></i> <a href="{$where}" download="{$user_id}.csv" target="_blank" onclick="redirect('','_self')">{$export_str}</a>
 						    {undef $export_str}
 						    {undef $where}
 					    </td>

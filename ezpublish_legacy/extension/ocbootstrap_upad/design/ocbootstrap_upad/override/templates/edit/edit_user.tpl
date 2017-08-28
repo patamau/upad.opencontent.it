@@ -100,78 +100,71 @@
 	<div class="tab-content">
 	<div class="clearfix attribute-edit tab-pane active">
 	<div class="row edit-row ezcca-edit-datatype-ezstring ezcca-edit-valid">
-            <div class="col-md-3">
-            	Validit&agrave; tessera
-            </div>
-            <div class="col-md-9">
-				{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text edit=true()}
-            </div>
-    </div>
-    </div>
-    </div>
-
-    <h2>Lista ricevute tesseramenti</h2>
-    
-    {set $count=0}
-    {foreach $subscriptions as $s}
-    	{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
-        {if $cname|contains('tessera')}
-			{set $count = $count|sum(1)}
-        {/if}
-        {undef $cname}
-    {/foreach}
-    
-    num: {$count}
-
-    {if $count|gt(0)}
-        <table class="table table-striped m_top_20">
-            <tr>
-                <th><strong>#</strong></th>
-                <th><strong>Data</strong></th>
-                <th><strong>Corso</strong></th>
-                <th><strong>Ricevute</strong></th>
-            </tr>
-            {foreach $subscriptions as $subscription}
-            	{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
-            	{if $cname|contains('tessera')}
-                <tr{if eq($subscription.data_map.annullata.content, 1)} class="danger"{/if}>
-                    <td>{$count}</td>
-                    <td>{$subscription.object.published|l10n(shortdate)}</td>
-                    <td>
-                    	{def $where=concat('courses/list/',$subscription.data_map.course.data_int)|ezurl(no)}
-                        <a href='{$where}' target='course'>
-                        {$subscription.data_map.course.content.name|wash()}
-                        </a>
-                        {undef $where}
-                    </td>
-                    <td>
-                        {foreach $subscription.data_map.invoices.content.rows.sequential as $row}
-                            {def $invoice = fetch( courses, invoice, hash( 'id', $row.columns[0] ))}
-                            <ul class="list-inline">
-                                <li><a class="btn btn-xs btn-danger" href={concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl()}>Stampa</a></li>
-                                <li><strong>Nr:</strong> {$invoice.invoice_id}</li>
-                                <li><strong>Data:</strong> {$invoice.date|l10n(shortdate)}</li>
-                                <li><strong>Importo:</strong> {$invoice.total|l10n( 'currency' )}</li>
-                            </ul>
-                            {undef $invoice}
-                        {/foreach}
-                    </td>
-                </tr>
-                {/if}
-                {undef $cname}
-            {/foreach}
-        </table>
-        {include name=navigator
-        uri='design:navigator/google.tpl'
-        page_uri= concat('courses/list/', $user.id)
-        item_count=$subscriptions_count
-        view_parameters=$view_parameters
-        item_limit=$page_limit}
-    {else}
-        <div class="alert alert-info m_top_20">
-            Non sono presenti tesseramenti
+        <div class="col-md-3">
+        	Validit&agrave; tessera
         </div>
-    {/if}
+        <div class="col-md-9">
+			{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text edit=true() user_id=$user.id}
+        </div>
+    </div>
+	<div class="row edit-row ezcca-edit-datatype-ezstring ezcca-edit-valid">
+    	<div class="col-md-3">Tesseramenti registrati</div>
+        <div class="col-md-9">
+		    {set $count=0}
+		    {foreach $subscriptions as $s}
+		    	{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
+		        {if $cname|contains('tessera')}
+					{set $count = $count|sum(1)}
+		        {/if}
+		        {undef $cname}
+		    {/foreach}
+		    
+		    {if $count|gt(0)}
+		        <table class="table table-striped">
+		            {foreach $subscriptions as $subscription}
+		            	{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
+		            	{if $cname|contains('tessera')}
+		                <tr{if eq($subscription.data_map.annullata.content, 1)} class="danger"{/if}>
+		                    <td>{$subscription.object.published|l10n(shortdate)}</td>
+		                    <td>
+		                    	{def $where=concat('courses/list/',$subscription.data_map.course.data_int)|ezurl(no)}
+		                        <a href='{$where}' target='course'>
+		                        {$subscription.data_map.course.content.name|wash()}
+		                        </a>
+		                        {undef $where}
+		                    </td>
+		                    <td>
+		                        {foreach $subscription.data_map.invoices.content.rows.sequential as $row}
+		                            {def $invoice = fetch( courses, invoice, hash( 'id', $row.columns[0] ))}
+		                            <ul class="list-inline">
+		                                <li><a class="btn btn-xs btn-danger" href={concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl()}>Stampa</a></li>
+		                                <li><strong>Nr:</strong> {$invoice.invoice_id}</li>
+		                                <li><strong>Data:</strong> {$invoice.date|l10n(shortdate)}</li>
+		                                <li><strong>Importo:</strong> {$invoice.total|l10n( 'currency' )}</li>
+		                            </ul>
+		                            {undef $invoice}
+		                        {/foreach}
+		                    </td>
+		                </tr>
+		                {/if}
+		                {undef $cname}
+		            {/foreach}
+		        </table>
+		        {include name=navigator
+		        uri='design:navigator/google.tpl'
+		        page_uri= concat('courses/list/', $user.id)
+		        item_count=$subscriptions_count
+		        view_parameters=$view_parameters
+		        item_limit=$page_limit}
+		    {else}
+		        <div class="alert_box warning text-center">
+         			<i class="fa fa-question-circle"></i><h4>Non sono presenti tesseramenti</h4>
+		        </div>
+		    {/if}
+		</div>
+    </div>
+    </div>
+    </div>
 
     {undef $subscriptions $subscriptions_count $count}
       
