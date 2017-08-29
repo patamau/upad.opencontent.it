@@ -82,7 +82,7 @@
     ),
     sort_by, array(
     array('attribute', true(), 'subscription/annullata'),
-    array( 'published', true() )
+    array( 'published', false() )
     )
     )
     )
