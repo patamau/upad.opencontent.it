@@ -47,11 +47,27 @@
         
         <section class='col-lg-12 col-md-12 col-sm-12 m_bottom_30'>
             <div class=" clearfix">
-                <h2 class="tt_uppercase color_dark m_bottom_25">{'Esportazione utenti tesserati'}</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_25">{'Esportazione tesseramenti'}</h2>
 				
-				{def $where=concat( 'layout/set/csv/content/view/csv/5')|ezurl('no')}
-                <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a>
-                {undef $where}
+				<div class="col-lg-4 col-md-4 col-sm-4">
+				<table class="table table-striped m_top_10">
+					<tbody>
+						<tr>
+						{def $where=concat( 'layout/set/csv/content/view/csv/5')|ezurl('no')}
+		                <td>Tesserati:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a></td>
+		                {undef $where}
+		                </tr><tr>
+		                {def $where=concat( 'layout/set/csv/content/view/csv/5/(expiry)/30')|ezurl('no')}
+		                <td>In scadenza (30 giorni):</td><td><i class="fa fa-download"></i> <a href='{$where}' download='expiring.csv'>{'Scarica CSV'}</a></td>
+		                {undef $where}
+		                </tr><tr>
+		                {def $where=concat( 'layout/set/csv/content/view/csv/5/(expiry)/-1')|ezurl('no')}
+		                <td>Scaduti:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='expired.csv'>{'Scarica CSV'}</a></td>
+		                {undef $where}
+		                </tr>
+	                </tbody>
+                </table>
+                </div>
             </div>
         </section>
     </div>

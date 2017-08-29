@@ -91,13 +91,12 @@ check_card_expired(card_payments)
 				{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
 				{* controllo il nome del corso con il corso di riferimento per la tessera *}
 				{*if $cname|contains($card_course)*}
-				{def $objects=fetch( 'content', 'related_objects', 
+				{def $area_tematica = fetch( 'content', 'related_objects', 
 					hash( 'object_id', $subscription.data_map.course.content.id, 
 						'attribute_identifier', 'corso/area_tematica'
 						) 
-					)
+					)[0]
 				}
-				{def $area_tematica = $objects[0]}
 				{if $area_tematica.name|eq('Tesseramento')}
 					{* imposto l'ultimo corso come riferimento, anche se e' stato annullato *}
 					{if $subcourse|not()}
@@ -125,6 +124,7 @@ check_card_expired(card_payments)
 				    {/if}
 			    {/if}
 			    {undef $cname}
+			    {undef $area_tematica}
 			{/foreach}
 			
 			<div>
