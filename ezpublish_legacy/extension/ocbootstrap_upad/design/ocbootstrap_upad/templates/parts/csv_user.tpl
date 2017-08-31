@@ -4,7 +4,9 @@
 	'surname',$node.data_map.last_name.content,
 	'birthdate',$node.data_map.data_nascita.data_text|strtotime()|datetime('custom','%d/%m/%Y'),
 	'card',$node.data_map.card.content,
-	'expdate',0
+	'email',$node.data_map.user_account.content.email,
+	'expdate',0,
+	'annullato',0,
 ) )
 }{if $expdate|eq(0)
 }{def $subscriptions = fetch(
@@ -50,5 +52,4 @@
 }{/foreach
 }{set $expdate=makedate($subdate|datetime(custom, '%m')|int(),$subdate|datetime(custom, '%d')|int(),$subdate|datetime(custom, '%Y')|int()|sum(1))
 }{/if
-}{$id},{$firstname},{$surname},{$birthdate},{$card},{$expdate|datetime(custom,'%d/%m/%Y')
-}{undef $subscriptions $card_course $subcourse $subdate $expdate}
+}{$id},{$firstname},{$surname},{$birthdate},{$email},{$card},{$expdate|datetime(custom,'%d/%m/%Y')},{$annullato|int()}{undef $subscriptions $card_course $subcourse $subdate $email $expdate $annullato}

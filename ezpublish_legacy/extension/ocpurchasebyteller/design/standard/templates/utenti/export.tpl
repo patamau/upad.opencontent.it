@@ -54,7 +54,7 @@
 					<tbody>
 						<tr>
 						{def $where=concat( 'layout/set/csv/content/view/csv/5')|ezurl('no')}
-		                <td>Tesserati:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a></td>
+		                <td>Validi:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a></td>
 		                {undef $where}
 		                </tr><tr>
 		                {def $where=concat( 'layout/set/csv/content/view/csv/5/(expiry)/30')|ezurl('no')}
@@ -62,7 +62,7 @@
 		                {undef $where}
 		                </tr><tr>
 		                {def $where=concat( 'layout/set/csv/content/view/csv/5/(expiry)/-1')|ezurl('no')}
-		                <td>Scaduti:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='expired.csv'>{'Scarica CSV'}</a></td>
+		                <td>Scaduti o annullati:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='expired.csv'>{'Scarica CSV'}</a></td>
 		                {undef $where}
 		                </tr>
 	                </tbody>

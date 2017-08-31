@@ -1,4 +1,10 @@
 
+        
+{def $user_id=$user.object.id}
+{* hot fix per user id non consistente *}
+{if $user_id|not()}
+	{set $user_id=$user.id}
+{/if}
 <div class="container">
     <h1 class="m_bottom_20">{attribute_view_gui attribute=$user.data_map.first_name} {attribute_view_gui attribute=$user.data_map.last_name}</h1>
     <div class="row clearfix">
@@ -11,61 +17,64 @@
                             <td><strong class="color_dark">{attribute_view_gui attribute=$attribute}</td>
                         </tr>
                     {/foreach}
+                    <tr>
+	                	<td>Dati per stampa tessera</td>
+	                	<td>
+		                	{def $export_str = "Esporta CSV per stampa tessera"} {*localizza!*}
+							{def $where=concat( '/layout/set/csv/content/view/csv/', $user.main_node_id)|ezurl('no')}
+							<a href="{$where}" download="{$user_id}.csv" target="_blank" onclick="redirect('','_self')" title="{$export_str}"><i class="fa fa-download"></i> Esporta CSV</a>
+							{undef $export_str}
+							{undef $where}
+						</td>
+					</tr>
                 </tbody>
             </table>
         </div>
-        
-{def $user_id=$user.object.id}
-{* hot fix per user id non consistente *}
-{if $user_id|not}
-	{set $user_id=$user.id}
-{/if}
 
         <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
             <table class="description_table m_bottom_5">
                 <tbody>
                 {foreach $user.contentobject_attributes as $attribute offset 7}
-                    <tr>
-                        <td>{$attribute.contentclass_attribute_name}</td>
-                        <td><strong class="color_dark">{attribute_view_gui attribute=$attribute}</td>
-                    </tr>
                     {if eq($attribute.contentclass_attribute_identifier,'card')}
-                    <tr>
-                    	<td>Validit&agrave; tessera</td>
-                    	<td>{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text user_id=$user_id}</td>
-                    </tr>
-                    <tr>
-                    	<td></td>
-                    	<td>
-						    {def $export_str = "Esporta CSV"} {*localizza!*}
-						    {def $where=concat( '/layout/set/csv/content/view/csv/', $user.main_node_id)|ezurl('no')}
-						    <i class="fa fa-download"></i> <a href="{$where}" download="{$user_id}.csv" target="_blank" onclick="redirect('','_self')">{$export_str}</a>
-						    {undef $export_str}
-						    {undef $where}
-					    </td>
-                    </tr>
+                    	{if $attribute.has_content}
+	                    <tr>
+	                        <td>{$attribute.contentclass_attribute_name}</td>
+	                        <td><strong class="color_dark">
+							    {attribute_view_gui attribute=$attribute}</strong>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                    	<td>Validit&agrave; tessera</td>
+	                    	<td>{include uri="design:parts/card_verify.tpl" card_id=$user.data_map.card.data_text user_id=$user_id}</td>
+	                    </tr>
+	                    {/if}
+                    {else}
+	                    <tr>
+	                        <td>{$attribute.contentclass_attribute_name}</td>
+	                        <td><strong class="color_dark">{attribute_view_gui attribute=$attribute}</strong></td>
+	                    </tr>
                     {/if}
                 {/foreach}
                 </tbody>
             </table>
         </div>
-        
-        {* pulsante per accedere direttamente alla modifica utente *}
-        <div class="clearfix">
-        	{def $where=concat( 'content/edit/', $user_id, '/f/', $user.object.default_language )|ezurl('no')}
-        	{def $button_str = "Modifica"} {*localizza!*}
-        	<input type="button" class="btn btn-lg btn-warning center-block" value="{$button_str}" onclick="redirect('{$where}','_self');"/>
-		    {undef $button_str}
-		    {undef $where}
-		    {literal}
-			<script type="text/javascript">
-			    function redirect(where,target)
-			    {
-				    window.open(where, target);
-			    };
-		    </script>
-		    {/literal}
-        </div>
+    </div>
+    
+    {* pulsante per accedere direttamente alla modifica utente *}
+    <div class="clearfix">
+    	{def $where=concat( 'content/edit/', $user_id, '/f/', $user.object.default_language )|ezurl('no')}
+    	{def $button_str = "Modifica"} {*localizza!*}
+    	<input type="button" class="btn btn-lg btn-warning center-block" value="{$button_str}" onclick="redirect('{$where}','_self');"/>
+	    {undef $button_str}
+	    {undef $where}
+	    {literal}
+		<script type="text/javascript">
+		    function redirect(where,target)
+		    {
+			    window.open(where, target);
+		    };
+	    </script>
+	    {/literal}
     </div>
 
     <hr/>

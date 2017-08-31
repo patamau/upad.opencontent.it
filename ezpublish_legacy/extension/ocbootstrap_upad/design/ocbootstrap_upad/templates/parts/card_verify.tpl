@@ -53,7 +53,7 @@ check_card_expired(card_payments)
 		{*se ce ne sono più di uno allora non va bene, altrimenti dovrebbe essere quello specificato...*}
 		{if and($user_id|ne(''),$user.contentobject_id|ne($user_id))}
 			<div class="alert_box r_corners warning m_bottom_10 text-center">
-	         	<i class="fa fa-question-circle"></i>
+	         	<i class="fa fa-exclamation-triangle"></i>
 				<h3>TESSERA GI&Agrave; ASSOCIATA</h3>
 			</div>
 			<ul>
@@ -88,9 +88,7 @@ check_card_expired(card_payments)
 				$card_course='tessera'}
 		
 			{foreach $subscriptions as $subscription}
-				{def $cname = $subscription.data_map.course.content.name|wash()|downcase()}
 				{* controllo il nome del corso con il corso di riferimento per la tessera *}
-				{*if $cname|contains($card_course)*}
 				{def $area_tematica = fetch( 'content', 'related_objects', 
 					hash( 'object_id', $subscription.data_map.course.content.id, 
 						'attribute_identifier', 'corso/area_tematica'
@@ -114,7 +112,7 @@ check_card_expired(card_payments)
 			                {/if}
 			                {undef $invoice}
 			            {/foreach*}
-			            {if ge($subscription.object.published,$subdate)}
+			            {if or($annullato,ge($subscription.object.published,$subdate))}
 			            	{set $subdate=$subscription.object.published}
 			            	{*overwrite the "last" course*}
 			            	{set $subcourse=$subscription.data_map.course}
@@ -123,7 +121,6 @@ check_card_expired(card_payments)
 			            {* usare una data di scadenza inserita manualmente? *}
 				    {/if}
 			    {/if}
-			    {undef $cname}
 			    {undef $area_tematica}
 			{/foreach}
 			
@@ -133,29 +130,32 @@ check_card_expired(card_payments)
 				{if $annullato|not()}
 					{* calcolo la data di scadenza l'anno prossimo*}
 					{def $expdate=makedate($subdate|datetime(custom, '%m')|int(),$subdate|datetime(custom, '%d')|int(),$subdate|datetime(custom, '%Y')|int()|sum(1))}
-					Scadenza: {$expdate|datetime(custom,'%d/%m/%Y')}
+					{* TODO: aggiungere la tessera in scadenza *}
 					{if $expdate|gt(currentdate())}
 						{* calcolo del tempo di validità rimanente in giorni e mesi *}
-						<br/>Tempo rimanente {$expdate|sub(currentdate())|div(86400)|int()|sum(1)} giorni ({$expdate|sub(currentdate())|datetime(custom, '%m')|int()|sub(1)} mesi, {$expdate|sub(currentdate())|datetime(custom, '%d')|int()} giorni)
+						{*<br/>Tempo rimanente {$expdate|sub(currentdate())|div(86400)|int()|sum(1)} giorni ({$expdate|sub(currentdate())|datetime(custom, '%m')|int()|sub(1)} mesi, {$expdate|sub(currentdate())|datetime(custom, '%d')|int()} giorni)*}
 						{*eq($subdate|datetime(custom, '%Y'),currentdate()|datetime(custom, '%Y')))*}
-						<div class="alert_box r_corners success m_bottom_10 text-center">
+						<div class="alert_box r_corners success m_bottom_10 text-center" title="{$subcourse.content.name}">
 							<i class="fa fa-thumbs-up"></i>
 							<h3>TESSERAMENTO VALIDO</h3>
+							<small>FINO AL {$expdate|datetime(custom,'%d/%m/%Y')}</small>
 						</div>
 					{else}
-						<div class="alert_box r_corners warning m_bottom_10 text-center">
-		              		<i class="fa fa-exclamation-triangle"></i>
+						<div class="alert_box r_corners error m_bottom_10 text-center" title="{$subcourse.content.name}">
+		              		<i class="fa fa-times-circle"></i>
 							<h3>TESSERAMENTO SCADUTO</h3>
+							<small>{$expdate|datetime(custom,'%d/%m/%Y')}</small>
 						</div>
 					{/if}
 					{undef $expdate}
 				{else}
-					<div class="alert_box r_corners error m_bottom_10 text-center">
+					<div class="alert_box r_corners error m_bottom_10 text-center" title="{if $subcourse}{$subcourse.content.name}{else}Nessun tesseramento registrato{/if}">
 	              		<i class="fa fa-times-circle"></i>
 						<h3>TESSERAMENTO INVALIDO</h3>
 					</div>
 				{/if}
 				
+				{*
 				{if $subcourse}
 					<small>
 						{def $where=concat('courses/list/',$subcourse.data_int)|ezurl(no)}
@@ -169,6 +169,7 @@ check_card_expired(card_payments)
 						{/if}
 					</small>
 				{/if}
+				*}
 				
 				{* non serve aggiornare da qui e potrebbe essere fuorviante (?)
 				<input class="btn btn-lg btn-success pull-right" type="button" value="Aggiorna" onclick="location.reload();"/>

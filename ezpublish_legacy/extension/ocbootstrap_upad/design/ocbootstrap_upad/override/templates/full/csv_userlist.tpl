@@ -55,16 +55,18 @@
 }{def 
 	$expdate=makedate($subdate|datetime(custom, '%m')|int(),$subdate|datetime(custom, '%d')|int(),$subdate|datetime(custom, '%Y')|int()|sum(1))
 	$print=true()
-}{if $view_parameters.expiry|gt(0)}{set $print = and($expdate|sub(currentdate())|div(86400)|lt($view_parameters.expiry),$expdate|sub(currentdate())|div(86400)|gt(0))
-}{elseif $view_parameters.expiry|lt(0)}{set $print = $expdate|sub(currentdate())|lt(0)
-}{else}{set $print = $expdate|sub(currentdate())|gt(0)
+}{if $view_parameters.expiry|gt(0)}{set $print = and($expdate|sub(currentdate())|div(86400)|lt($view_parameters.expiry),$expdate|sub(currentdate())|div(86400)|gt(0),$annullato|not())
+}{elseif $view_parameters.expiry|lt(0)}{set $print = or($expdate|sub(currentdate())|lt(0),$annullato)
+}{else}{set $print = and($expdate|sub(currentdate())|gt(0),$annullato|not())
 }{/if
 }{if $print}{include uri="design:parts/csv_user.tpl" 
 	id=$node.object.id
 	firstname=$node.data_map.first_name.content
 	surname=$node.data_map.last_name.content
 	birthdate=$node.data_map.data_nascita.data_text|strtotime()|datetime('custom','%d/%m/%Y')
+	email=$node.data_map.user_account.content.email
 	card=$node.data_map.card.content
 	expdate=$expdate
-	}{undef $subscriptions $card_course $subcourse $subdate $expdate}{'\r\n'
+	anullato=$annullato
+	}{undef $subscriptions $card_course $subcourse $subdate $expdate $annullato}{'\r\n'
 }{/if}{/foreach}
