@@ -4,11 +4,11 @@ $codice_area = false() }
     <div class="col-md-12 m_bottom_20">
         <ul class="nav nav-tabs">
             <li role="presentation"><a href="{'utenti/list'|ezurl(no)}"><i class="fa fa-users"></i> Utenti</a></li>
-            <li role="presentation" class="active"><a href="{'courses/list'|ezurl(no)}"><i class="fa fa-book"></i> Corsi</a>
+            <li role="presentation"><a href="{'courses/list'|ezurl(no)}"><i class="fa fa-book"></i> Corsi</a>
             </li>
             <li role="presentation"><a href="{'courses/archive'|ezurl(no)}"><i class="fa fa-archive"></i> Archivio</a>
             </li>
-            <li role="presentation"><a href="{'cards/list'|ezurl(no)}"><i class="fa fa-credit-card"></i> Tesseramenti</a>
+            <li role="presentation" class="active"><a href="{'cards/list'|ezurl(no)}"><i class="fa fa-credit-card"></i> Tesseramenti</a>
             </li>
         </ul>
     </div>
@@ -32,7 +32,7 @@ $codice_area = false() }
                 {/foreach}
             </ul>
         </div>
-        <h1>Sezione per gestire i corsi</h1>
+        <h1>Sezione per gestire i tesseramenti</h1>
     </div>
 
     <section class="col-lg-9 col-md-9 col-sm-8 m_xs_bottom_30">
@@ -51,7 +51,7 @@ $codice_area = false() }
             	'extended_attribute_filter', hash(
 			        'id', 'my_filter',
 			        'params', hash(
-			        	'compare','!=',
+			        	'compare','=',
 			            'otherobject_id', 15903
 			        )
 			    ),
@@ -61,7 +61,7 @@ $codice_area = false() }
             	'extended_attribute_filter', hash(
 			        'id', 'my_filter',
 			        'params', hash(
-			        	'compare','!=',
+			        	'compare','=',
 			            'otherobject_id', 15903
 			        )
 			    ),
