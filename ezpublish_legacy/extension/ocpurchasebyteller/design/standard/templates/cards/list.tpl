@@ -18,7 +18,7 @@ $codice_area = false() }
                     class="fa fa-user" aria-hidden="true"></i> Aggiungi utente</a>
         <div class="dropdown pull-right m_right_10">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                    aria-expanded="true"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Aggiungi corso <span
+                    aria-expanded="true"><i class="fa fa-plus" aria-hidden="true"></i> Aggiungi tesseramento <span
                         class="caret"></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                 {foreach ezini("EnteSettings", "list", "purchasebyteller.ini") as $k => $v}
@@ -37,7 +37,7 @@ $codice_area = false() }
 
     <section class="col-lg-9 col-md-9 col-sm-8 m_xs_bottom_30">
 
-        {def $page_url = '/courses/list'
+        {def $page_url = '/cards/list'
         $page_limit = 30
         $data = class_search_result(  hash( 'sort_by', hash( 'score', 'desc' ), 'limit', $page_limit ), $view_parameters )
         $children = array()
@@ -126,26 +126,8 @@ $codice_area = false() }
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{concat( 'courses/create_edition/', $node.object.id )|ezurl('no')}"
-                                       class="has_tooltip" data-toggle="tooltip" data-placement="top"
-                                       title="Crea nuova edizione">
-                                        <span class="fa-stack">
-                                          <i class="fa fa-circle fa-stack-2x"></i>
-                                          <i class="fa fa-files-o fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{concat( 'courses/archive/', $node.object.id, '?Archive=true' )|ezurl('no')}"
-                                       class="has_tooltip" data-toggle="tooltip" data-placement="top" title="Archivia">
-                                        <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i
-                                                    class="fa fa-archive fa-stack-1x fa-inverse" aria-hidden="true"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
                                     <form action={concat('courses/list/', $node.object.id)|ezurl()} method="post" class="pull-right">
-                                        <button class="has_tooltip btn-link btn-custom" data-toggle="tooltip" data-placement="top" title="Crea utente ed iscrivi al corso" type="submit" name="CreateAndSubscribe" title="Crea utente ed iscrivi al corso">
+                                        <button class="has_tooltip btn-link btn-custom" data-toggle="tooltip" data-placement="top" title="Crea utente ed iscrivi al corso" type="submit" name="CreateAndSubscribe" title="Crea utente ed iscrivi">
                                             <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-user fa-stack-1x fa-inverse" aria-hidden="true"></i>
                                         </span>
                                         </button>
