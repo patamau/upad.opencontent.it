@@ -30,10 +30,10 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
     if ( $http->hasPostVariable( 'Subscribe' ) )
     {
         eZContentBrowse::browse( array( 'action_name' => 'AddUserToCourse',
-                                        'from_page' => '/courses/list/' . $currentId,
+                                        'from_page' => '/cards/list/' . $currentId,
                                         'class_array' => array( 'user' ),
                                         'start_node' => eZINI::instance()->variable( "UserSettings", "DefaultUserPlacement" ),
-                                        'cancel_page' => '/courses/list/' . $currentId ),
+                                        'cancel_page' => '/cars/list/' . $currentId ),
                                 $module );
         return;
     }
@@ -50,7 +50,7 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
             if ( $user instanceof eZUser )
             {
                 UpadSubscription::instance( $currentId, $user->id() );
-                $module->redirectTo( '/courses/list/' . $currentId );
+                $module->redirectTo( '/cards/list/' . $currentId );
                 return;
             }
         }
@@ -74,7 +74,7 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
             $datamap = $object->dataMap();
             $datamap['annullata']->fromString( '1' );
             $datamap['annullata']->store();
-            $module->redirectTo( '/courses/list/' . $currentId );
+            $module->redirectTo( '/cards/list/' . $currentId );
             return;
         }
     }
@@ -90,7 +90,7 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
             $datamap = $object->dataMap();
             $datamap['annullata']->fromString( '0' );
             $datamap['annullata']->store();
-            $module->redirectTo( '/courses/list/' . $currentId );
+            $module->redirectTo( '/cards/list/' . $currentId );
             return;
         }
     }
@@ -99,10 +99,10 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
     if ( $http->hasPostVariable( 'Presubscribe' ) )
     {
         eZContentBrowse::browse( array( 'action_name' => 'PresubscribeUserToCourse',
-            'from_page' => '/courses/list/' . $currentId,
+            'from_page' => '/cards/list/' . $currentId,
             'class_array' => array( 'user' ),
             'start_node' => eZINI::instance()->variable( "UserSettings", "DefaultUserPlacement" ),
-            'cancel_page' => '/courses/list/' . $currentId ),
+            'cancel_page' => '/cards/list/' . $currentId ),
             $module );
         return;
     }
@@ -119,7 +119,7 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
             if ( $user instanceof eZUser )
             {
                 UpadPreSubscription::instance( $currentId, $user->id() );
-                $module->redirectTo( '/courses/list/' . $currentId );
+                $module->redirectTo( '/cards/list/' . $currentId );
                 return;
             }
         }
@@ -135,13 +135,13 @@ if ( $current instanceof eZContentObject && $current->attribute( 'class_identifi
 
     $tpl->setVariable( "course", $current );
     $Result['path'] = array(
-        array( 'text' => "Gestione Corsi", 'url' => 'courses/list' ),
+        array( 'text' => "Gestione Tesseramenti", 'url' => 'cards/list' ),
         array( 'text' => $current->attribute( 'name' ), 'url' => false ),
     );
     $Result['content'] = $tpl->fetch( 'design:courses/single.tpl' );
 }
 else
 {
-    $Result['path'] = array( array( 'text' => "Gestione Corsi", 'url' => false ) );
+    $Result['path'] = array( array( 'text' => "Gestione Tesseramenti", 'url' => false ) );
     $Result['content'] = $tpl->fetch( 'design:cards/list.tpl' );
 }

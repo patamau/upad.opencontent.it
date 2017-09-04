@@ -2,25 +2,27 @@
     {if $current_user.is_logged_in}
         <nav class="col-lg-6 col-md-6 col-sm-6 t_xs_align_c">
             <ul class="d_inline_b horizontal_list clearfix f_size_small users_nav">
-                <li id="myprofile"><a href={"/user/edit/"|ezurl} title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}">{'My profile'|i18n('design/ocbootstrap/pagelayout')}</a></li>
-                <li id="basket"><a href={"/shop/basket"|ezurl} title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}">{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}</a></li>
+            	<li></li>
+                <li id="myprofile"><a href={"/user/edit/"|ezurl} title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}" title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}">{$current_user.contentobject.name|wash} <i class="fa fa-user"></i></a></li>
+                <li id="basket"><a href={"/shop/basket"|ezurl} title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}" title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-shopping-cart"></i></a></li>
                 {*<li id="basket"><a href={"/shop/orderlist/"|ezurl}>{"My orders"|i18n("design/ocbootstrap/user/edit")}</a></li>*}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'ocorder','function', 'list' ) )}
-                <li id="orders"><a href={"/ocorder/list/"|ezurl}>{"My orders"|i18n("design/ocbootstrap/user/edit")}</a></li>
+                <li id="orders"><a href={"/ocorder/list/"|ezurl} title="{'My orders'|i18n('design/ocbootstrap/user/edit')}"><i class="fa fa-list-ol"></i></a></li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'utenti','function', 'list' ) )}
-                    <li id="orders"><a href={"/utenti/list/"|ezurl}>{"Gestione utenti"|i18n("design/ocbootstrap/user/edit")}</a></li>
+                    <li id="orders"><a href={"/utenti/list/"|ezurl} title="{'Gestione utenti'|i18n('design/ocbootstrap/user/edit')}"><i class="fa fa-users"></i></a></li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'courses','function', 'list' ) )}
-                <li id="orders"><a href={"/courses/list/"|ezurl}>{"Gestione corsi"|i18n("design/ocbootstrap/user/edit")}</a></li>
+                <li id="orders"><a href={"/courses/list/"|ezurl} title="{"Gestione corsi"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-book"></i></a></li>
+                <li id="orders"><a href={"/cards/list/"|ezurl} title="{"Gestione tesseramenti"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-credit-card"></i></a></li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'invoice','function', 'manage' ) )}
-                <li id="orders"><a href={"/invoice/manage/"|ezurl}>{"Gestione fatture"|i18n("design/ocbootstrap/user/edit")}</a></li>
+                <li id="orders"><a href={"/invoice/manage/"|ezurl} title="{"Gestione fatture"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-euro"></i></a></li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'invoice','function', 'manage' ) )}
-                <li id="orders"><a href={"/invoice/report_aree/"|ezurl}>{"Report centro di costo"|i18n("design/ocbootstrap/user/edit")}</a></li>
+                <li id="orders"><a href={"/invoice/report_aree/"|ezurl} title="{"Report centro di costo"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-money"></i></a></li>
                 {/if}
-                <li id="logout"><a href={"/user/logout"|ezurl} title="{'Logout'|i18n('design/ocbootstrap/pagelayout')}">{'Logout'|i18n('design/ocbootstrap/pagelayout')} ( {$current_user.contentobject.name|wash} )</a></li>
+                <li id="logout"><a href={"/user/logout"|ezurl} title="{'Logout'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-sign-out"></i></a></li>
             </ul>
         </nav>
     {else}

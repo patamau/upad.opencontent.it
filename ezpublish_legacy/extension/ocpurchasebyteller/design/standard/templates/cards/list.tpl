@@ -6,9 +6,9 @@ $codice_area = false() }
             <li role="presentation"><a href="{'utenti/list'|ezurl(no)}"><i class="fa fa-users"></i> Utenti</a></li>
             <li role="presentation"><a href="{'courses/list'|ezurl(no)}"><i class="fa fa-book"></i> Corsi</a>
             </li>
-            <li role="presentation"><a href="{'courses/archive'|ezurl(no)}"><i class="fa fa-archive"></i> Archivio</a>
-            </li>
             <li role="presentation" class="active"><a href="{'cards/list'|ezurl(no)}"><i class="fa fa-credit-card"></i> Tesseramenti</a>
+            </li>
+            <li role="presentation"><a href="{'courses/archive'|ezurl(no)}"><i class="fa fa-archive"></i> Archivio</a>
             </li>
         </ul>
     </div>
@@ -126,8 +126,16 @@ $codice_area = false() }
                                     </a>
                                 </li>
                                 <li>
-                                    <form action={concat('courses/list/', $node.object.id)|ezurl()} method="post" class="pull-right">
-                                        <button class="has_tooltip btn-link btn-custom" data-toggle="tooltip" data-placement="top" title="Crea utente ed iscrivi al corso" type="submit" name="CreateAndSubscribe" title="Crea utente ed iscrivi">
+                                    <a href="{concat( 'courses/archive/', $node.object.id, '?Archive=true' )|ezurl('no')}"
+                                       class="has_tooltip" data-toggle="tooltip" data-placement="top" title="Archivia">
+                                        <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i
+                                                    class="fa fa-archive fa-stack-1x fa-inverse" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <form action={concat('cards/list/', $node.object.id)|ezurl()} method="post" class="pull-right">
+                                        <button class="has_tooltip btn-link btn-custom" data-toggle="tooltip" data-placement="top" title="Crea utente ed iscrivi" type="submit" name="CreateAndSubscribe" title="Crea utente ed iscrivi">
                                             <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-user fa-stack-1x fa-inverse" aria-hidden="true"></i>
                                         </span>
                                         </button>
@@ -151,19 +159,6 @@ $codice_area = false() }
     </section>
 
     <aside class="col-lg-3 col-md-3 col-sm-4 m_xs_bottom_30">
-
-        {*<figure class="widget shadow r_corners wrapper m_bottom_30">
-          <figcaption>
-              <h3 class="color_light">Cerca per nome</h3>
-          </figcaption>
-          <div class="widget_content">
-            <form action={$page_url|ezurl} method="GET">
-              <input type="text" class="form-control m_bottom_20" name="Search" placeholder="Cerca per nome" value="{$view_parameters.query|wash()}"/>
-              <p class="t_align_c"><button class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" type="submit">Cerca attività</button></p>
-            </form>
-          </div>
-        </figure>*}
-
         {class_search_form( 'corso', hash( 'RedirectUrlAlias', $page_url ) )}
     </aside>
 </div>

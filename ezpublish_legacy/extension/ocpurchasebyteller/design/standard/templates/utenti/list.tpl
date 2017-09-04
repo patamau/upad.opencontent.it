@@ -3,8 +3,8 @@
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="{'utenti/list'|ezurl(no)}"><i class="fa fa-users"></i> Utenti</a></li>
             <li role="presentation"><a href="{'courses/list'|ezurl(no)}"><i class="fa fa-book"></i> Corsi</a></li>
-            <li role="presentation"><a href="{'courses/archive'|ezurl(no)}"><i class="fa fa-archive"></i> Archivio</a></li>
             <li role="presentation"><a href="{'cards/list'|ezurl(no)}"><i class="fa fa-credit-card"></i> Tesseramenti</a></li>
+            <li role="presentation"><a href="{'courses/archive'|ezurl(no)}"><i class="fa fa-archive"></i> Archivio</a></li>
         </ul>
     </div>
 <div class="col-md-12 m_bottom_20">

@@ -509,3 +509,12 @@ a:focus {
 .tags_list {
     line-height: 1;
 }
+
+ul.list-inline {
+	white-space: nowrap;
+}
+
+.list-inline>li {
+	padding-right: 0px;
+	padding-left: 0px;
+}
