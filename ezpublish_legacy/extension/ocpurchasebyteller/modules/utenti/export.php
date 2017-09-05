@@ -54,7 +54,7 @@ switch ($action) {
             'Nome',
             'Indirizzo',
             'Cap',
-            'CittÃ ',
+            'Città',
             'Nazione',
             'Data Iscrizione',
             'Telefono',
@@ -118,24 +118,42 @@ switch ($action) {
 
                     $ids = array($user->attribute('id'), $course->attribute('id'), $e->attribute('id'));
                     unset($sDataMap, $course, $user, $e, $uDataMap, $cDataMap);
-                    eZContentObject::clearCache($ids);
+                    //eZContentObject::clearCache($ids);
                 }
                 // Increment the offset until we've gone through every user
                 $offset += $limit;
             }
 
-            $objPHPExcel = new PHPExcel();
+
+            $filename = 'utenti_iscritti_' . $da . '_' . $a . '.csv';
+            header('X-Powered-By: eZ Publish');
+            header('Content-Description: File Transfer');
+            header('Content-Type: text/csv; charset=utf-8');
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+
+            $output = fopen('php://output', 'w');
+            foreach ($data as $d)
+            {
+                fputcsv($output, $d, ';', '"');
+                flush();
+            }
+
+
+            /*$objPHPExcel = new PHPExcel();
             $objPHPExcel->getProperties()->setCreator('upad.it')
                 ->setLastModifiedBy('upad.it')
                 ->setTitle('Export Utenti')
                 ->setSubject('Export Utenti')
                 ->setDescription('Utenti iscritti ai corsi dal ' . $da);
+
             $objPHPExcel->getActiveSheet()->fromArray($data);
 
             $filename = 'utenti_iscritti_' . $da . '_' . $a . '.xlsx';
 
-            // Redirect output to a clientâ€™s web browser (Excel2007)
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            // Redirect output to a client’s web browser (Excel2007)
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
             header('Content-Disposition: attachment;filename="' . $filename . '"');
             header('Cache-Control: max-age=0');
             // If you're serving to IE 9, then the following may be needed
@@ -146,14 +164,14 @@ switch ($action) {
             header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
             header ('Pragma: public'); // HTTP/1.0
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $objWriter->save('php://output');
+            $objWriter->save('php://output');*/
             eZExecution::cleanExit();
+
         }
         break;
 
     case 'view':
     default:
-
         $Result['path'] = array(
             array( 'text' => "Gestione Utenti", 'url' => 'utenti/list' ),
             array( 'text' => 'Esportazione utenti', 'url' => false )
