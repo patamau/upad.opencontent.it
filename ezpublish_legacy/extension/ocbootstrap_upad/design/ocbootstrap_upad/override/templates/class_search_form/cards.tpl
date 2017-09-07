@@ -21,7 +21,6 @@
 				{def $additional_fields=array('ente')}
 
                 {foreach $helper.attribute_fields as $input}
-                	[{$input.class_attribute.identifier}]
                     {if $additional_fields|contains($input.class_attribute.identifier)}
                     	{attribute_search_form( $helper, $input )}
                     {/if}

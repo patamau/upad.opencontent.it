@@ -2,8 +2,8 @@
     {if $current_user.is_logged_in}
         <nav class="col-lg-6 col-md-6 col-sm-6 t_xs_align_c">
             <ul class="d_inline_b horizontal_list clearfix f_size_small users_nav">
-            	<li></li>
-                <li id="myprofile"><a href={"/user/edit/"|ezurl} title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}" title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}">{$current_user.contentobject.name|wash} <i class="fa fa-user"></i></a></li>
+                <li id="logout"><a href={"/user/logout"|ezurl} title="{'Logout'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-sign-out"></i></a></li>
+                <li id="myprofile"><a href={"/user/edit/"|ezurl} title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}" title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}">{$current_user.contentobject.name|wash}</a></li>
                 <li id="basket"><a href={"/shop/basket"|ezurl} title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}" title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-shopping-cart"></i></a></li>
                 {*<li id="basket"><a href={"/shop/orderlist/"|ezurl}>{"My orders"|i18n("design/ocbootstrap/user/edit")}</a></li>*}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'ocorder','function', 'list' ) )}
@@ -22,7 +22,6 @@
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'invoice','function', 'manage' ) )}
                 <li id="orders"><a href={"/invoice/report_aree/"|ezurl} title="{"Report centro di costo"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-money"></i></a></li>
                 {/if}
-                <li id="logout"><a href={"/user/logout"|ezurl} title="{'Logout'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-sign-out"></i></a></li>
             </ul>
         </nav>
     {else}

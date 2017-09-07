@@ -20,7 +20,15 @@
     <h2 class="tt_uppercase color_dark m_bottom_25">{$node.data_map.short_name.content|wash()}</h2>
     {/if}
 
-    {def $children_count = fetch( content, concat( $fetch_type, '_count' ), hash( 'parent_node_id', $parent_node.node_id )|merge( $params ) )}
+    {def $children_count = fetch( content, concat( $fetch_type, '_count' ), hash( 'parent_node_id', $parent_node.node_id,
+					              'extended_attribute_filter', hash(
+								        'id', 'my_filter',
+								        'params', hash(
+								        	'compare','!=',
+								            'otherobject_id', 15903
+								        )
+								    )
+    								)|merge( $params ) )}
     {if $children_count}
         {include name=navigator
                uri='design:navigator/google.tpl'
@@ -33,6 +41,13 @@
           {foreach fetch( content, $fetch_type, hash( 'parent_node_id', $parent_node.node_id,
                                                   'offset', $view_parameters.offset,
                                                   'sort_by', $parent_node.sort_array,
+                                                  'extended_attribute_filter', hash(
+												        'id', 'my_filter',
+												        'params', hash(
+												        	'compare','!=',
+												            'otherobject_id', 15903
+												        )
+												    ),
                                                   'limit', $page_limit )|merge( $params ) ) as $child }
             {node_view_gui view=$view content_node=$child}
             {delimiter}{$delimiter}{/delimiter}
