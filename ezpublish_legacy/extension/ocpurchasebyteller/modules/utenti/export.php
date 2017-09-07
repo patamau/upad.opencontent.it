@@ -51,7 +51,6 @@ switch ($action) {
 
         $data []= array(
             //'Id',
-            'Ente',
             'Nome',
         	'Cognome',
         	'Tessera',
@@ -61,12 +60,13 @@ switch ($action) {
             'Nazione',
             'Data Iscrizione',
             'Telefono',
-            'Email'
+            'Email',
+            'Ente'
         );
 
         if ( $count > 0)
         {
-            if ($count > 10000)
+            if ($count > 500)
             {
                 $tpl->setVariable( "too_many", true );
                 $Result['path'] = array(
@@ -101,7 +101,6 @@ switch ($action) {
 
                         $temp = array(
                             //'id'  => $user->attribute('id'),
-                            'ente' => $e->Name,
                             'name' => $uDataMap['first_name']->toString(),
                         	'lastname' => $uDataMap['last_name']->toString(),
                         	'card' => $uDataMap['card']->toString(),
@@ -112,9 +111,11 @@ switch ($action) {
                             'published' => strftime('%d/%m/%Y', $s->object()->Published),
                             'phone' => $uDataMap['telefono']->toString(),
                             'email' => $uDataMap['user_account']->content()->Email,
+                            'ente'  => $e->Name
+
                         );
 
-                        if ($e->Name == $ente || $ente == 'all') {
+                        if ($cDataMap['ente']->toString() == $ente || $ente == 'all') {
                             $data[] = $temp;
                         }
                     }
