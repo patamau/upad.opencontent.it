@@ -13,23 +13,27 @@
 						</div>
 						<div class="col-lg-7 col-md-8 col-sm-10 t_xs_align_c ">
 							<ul class="horizontal_list f_right clearfix">
-								<li class="relative bg_light_color_3 p_5 f_left">
+								<li class="relative bg_light_color_3 f_left">
+									<span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small">Upad</span>
+									<a href="{'Chi-siamo/Upad'|ezurl( 'no' )}"><img src="{'logo-upad2.png'|ezimage('no')}" alt="upad"></a>
+								</li>
+								<li class="relative bg_light_color_3 f_left">
 									<span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small">Mua</span>
 									<a href="{'Chi-siamo/Mua'|ezurl( 'no' )}"><img src="{'temp/mua.png'|ezimage('no')}" alt="mua"></a>
 								</li>
-								<li class="relative m_left_10 bg_light_color_3 p_5 f_left">
+								<li class="relative bg_light_color_3 f_left">
 									<span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small">ascolto giovani</span>
 									<a href="{'Chi-siamo/Ascolto-Giovani'|ezurl( 'no' )}"><img src="{'temp/ascolto-giovani.png'|ezimage('no')}" alt="ascolto giovani"></a>
 								</li>
-								<li class="relative m_left_10 bg_light_color_3 p_5 f_left">
+								<li class="relative bg_light_color_3 f_left">
 									<span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small">palladio</span>
 									<a href="{'Chi-siamo/Palladio'|ezurl( 'no' )}"><img src="{'temp/palladio.png'|ezimage('no')}" alt="palladio"></a>
 								</li>
-								<li class="relative m_left_10 bg_light_color_3 p_5 f_left">
+								<li class="relative bg_light_color_3 f_left">
 									<span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small">tempo libero</span>
 									<a href="{'Chi-siamo/Tempo-libero-UPAD'|ezurl( 'no' )}"><img src="{'temp/tempo-libero.png'|ezimage('no')}" alt="tempo libero"></a>
 								</li>
-								<li class="relative m_left_10 bg_light_color_3 p_5 f_left">
+								<li class="relative bg_light_color_3 f_left">
 									<span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small">altoatesini</span>
 									<a href="{'Chi-siamo/Altoatesini-nel-mondo'|ezurl( 'no' )}"><img src="{'temp/altoatesini.png'|ezimage('no')}" alt="altoatesini"></a>
 								</li>
