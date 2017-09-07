@@ -11,9 +11,12 @@
                     {attribute_view_gui attribute=$node|attribute( 'body' )}
                 </div>
             {/if}
+            
+    	  	{def $current_user=fetch( 'user', 'current_user' )}
+    	  	
             {def $page_limit = 10
                  $data = class_search_result(  hash( 'sort_by', hash( 'name', 'asc' ),
-													 'limit', $page_limit ),
+													 'limit', $page_limit),
 									   $view_parameters )}
             {if $data.is_search_request}
                 {include name=class_search_form_result

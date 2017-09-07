@@ -10,8 +10,9 @@
 
 {if $data.count}
     <div class="content-view-children">
-          {foreach $data.contents as $child }
+          {foreach $data.contents as $child } 
               {node_view_gui view='line' content_node=$child}
+              
           {/foreach}
     </div>
     {include name=navigator
