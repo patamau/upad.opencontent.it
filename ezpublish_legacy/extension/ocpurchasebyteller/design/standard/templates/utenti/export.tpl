@@ -53,6 +53,10 @@
 				<table class="table table-striped m_top_10">
 					<tbody>
 						<tr>
+						{def $where=concat( 'layout/set/csv/content/view/csv/5/(dueprint)/1')|ezurl('no')}
+		                <td>Da stampare:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a></td>
+		                {undef $where}
+		                </tr><tr>
 						{def $where=concat( 'layout/set/csv/content/view/csv/5')|ezurl('no')}
 		                <td>Validi:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a></td>
 		                {undef $where}
