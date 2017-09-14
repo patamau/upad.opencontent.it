@@ -1,5 +1,13 @@
 <hr/>
-
+{if is_set( $view_parameters.orderby )|not}
+	{def $orderby='name' 
+		$orderasc=true()
+	}
+{else}
+	{def $orderby=$view_parameters.orderby
+		$orderasc=$view_parameters.orderasc
+	}
+{/if}
 {def $page_limit = 50
 $subscriptions = fetch(
     'content', 'tree', hash(
@@ -11,7 +19,7 @@ $subscriptions = fetch(
         attribute_filter, array(
             array( 'subscription/course', '=', $course.id )
         ),
-        sort_by, array( 'name', true() )
+        sort_by, array( $orderby, $orderasc )
 
     )
 )
@@ -61,15 +69,14 @@ sort_by, array(
     </ul>
 </div>
 
-
-<h2>Lista iscrizioni</h2>
+<h2>Lista iscrizioni ({$orderby})</h2>
 
 {if $subscriptions_count|gt(0)}
     <table class="table table-striped m_top_20">
         <tr>
             <th><strong>#</strong></th>
-            <th><strong>Data</strong></th>
-            <th><strong>Nominativo</strong></th>
+            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/0')|ezurl('no')}">V</a> <strong>Data</strong></th>
+            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(oderasc)/1')|ezurl('no')}">V</a> <strong>Nominativo</strong></th>
             <th><strong>Ricevute</strong></th>
             <th></th>
         </tr>

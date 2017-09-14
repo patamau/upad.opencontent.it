@@ -2,12 +2,7 @@
     <div class="row clearfix">
               
         <div class='col-lg-4 col-md-4 col-sm-4 m_bottom_30 col-lg-offset-4'>
-          
-            <div class="alert_box r_corners warning m_bottom_10 text-center">
-              <i class="fa fa-exclamation-circle"></i>
-              <h1>Funzionalità presto disponibile</h1>
-            </div>
-          
+        
             <h2 class="tt_uppercase color_dark m_bottom_20">{"Login"|i18n("design/ocbootstrap/user/login")}</h2>
             {if $User:warning.bad_login}
                 <div class="alert_box r_corners warning m_bottom_10">
