@@ -69,14 +69,14 @@ sort_by, array(
     </ul>
 </div>
 
-<h2>Lista iscrizioni ({$orderby})</h2>
+<h2>Lista iscrizioni</h2>
 
 {if $subscriptions_count|gt(0)}
     <table class="table table-striped m_top_20">
         <tr>
             <th><strong>#</strong></th>
-            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/0')|ezurl('no')}">V</a> <strong>Data</strong></th>
-            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(oderasc)/1')|ezurl('no')}">V</a> <strong>Nominativo</strong></th>
+            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/0')|ezurl('no')}"><i class="fa fa-sort-desc"></i></a> <strong>Data</strong></th>
+            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(oderasc)/1')|ezurl('no')}"><i class="fa fa-sort-desc"></i></a> <strong>Nominativo</strong></th>
             <th><strong>Ricevute</strong></th>
             <th></th>
         </tr>
@@ -86,7 +86,7 @@ sort_by, array(
                     <td>{$subscription.object.published|l10n(shortdate)}</td>
                     <td>
                         {if $subscription.data_map.user.content.can_edit}
-                            <a href="{concat( 'content/edit/', $subscription.data_map.user.content.id, '/f/', $subscription.data_map.user.content.default_language )|ezurl('no')}" class="has_tooltip" data-toggle="tooltip" data-placement="top" title="Modifica">
+                            <a target="{$subscription.data_map.user.content.id}" href="{concat( 'utenti/list/', $subscription.data_map.user.content.id, '/f/', $subscription.data_map.user.content.default_language )|ezurl('no')}" class="has_tooltip" data-toggle="tooltip" data-placement="top" title="Modifica">
                                 {$subscription.data_map.user.content.name|wash()}
                             </a>
                         {else}

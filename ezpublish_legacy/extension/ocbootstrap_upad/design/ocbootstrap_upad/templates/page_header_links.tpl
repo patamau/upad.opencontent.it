@@ -7,13 +7,17 @@
                 <li id="basket"><a href={"/shop/basket"|ezurl} title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}" title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-shopping-cart"></i></a></li>
                 {*<li id="basket"><a href={"/shop/orderlist/"|ezurl}>{"My orders"|i18n("design/ocbootstrap/user/edit")}</a></li>*}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'ocorder','function', 'list' ) )}
-                <li id="orders"><a href={"/ocorder/list/"|ezurl} title="{'My orders'|i18n('design/ocbootstrap/user/edit')}"><i class="fa fa-list-ol"></i></a></li>
+                <li id="orders">
+                <a href={"/ocorder/list/"|ezurl} title="{'My orders'|i18n('design/ocbootstrap/user/edit')}"><i class="fa fa-list-ol"></i></a>
+                </li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'utenti','function', 'list' ) )}
                     <li id="orders"><a href={"/utenti/list/"|ezurl} title="{'Gestione utenti'|i18n('design/ocbootstrap/user/edit')}"><i class="fa fa-users"></i></a></li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'courses','function', 'list' ) )}
-                <li id="orders"><a href={"/courses/list/"|ezurl} title="{"Gestione corsi"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-book"></i></a></li>
+                <li id="orders">
+                	<a href={"/courses/list/"|ezurl} title="{"Gestione corsi"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-book"></i></a>
+                </li>
                 <li id="orders"><a href={"/cards/list/"|ezurl} title="{"Gestione tesseramenti"|i18n("design/ocbootstrap/user/edit")}"><i class="fa fa-credit-card"></i></a></li>
                 {/if}
                 {if fetch( 'user', 'has_access_to', hash( 'module', 'invoice','function', 'manage' ) )}
