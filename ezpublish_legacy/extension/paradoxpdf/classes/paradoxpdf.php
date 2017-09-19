@@ -68,12 +68,8 @@ class ParadoxPDF
      * @return void
      */
 
-    public function exportPDF($xhtml = '', $pdf_file_name = '', $keys, $subtree_expiry, $expiry, $ignore_content_expiry = false)
+    public function exportPDF($xhtml = '', $pdf_file_name = '', $keys, $subtree_expiry, $expiry, $ignore_content_expiry = false, $content_type='inline')
     {
-        if ($pdf_file_name == '') {
-            $pdf_file_name = 'file';
-        }
-
         $data = '';
         $size = 0;
         $mtime = eZDateTime::currentTimeStamp();
@@ -125,7 +121,7 @@ class ParadoxPDF
             $size = $this->size;
         }
 
-        $this->flushPDF($data, $pdf_file_name, $size, $mtime, $httpExpiry);
+        $this->flushPDF($data, $pdf_file_name, $size, $mtime, $httpExpiry, $content_type);
     }
 
     /**
@@ -208,7 +204,7 @@ class ParadoxPDF
      * @param $expiry  Not used
      * @return void
      */
-    public function flushPDF($data, $pdf_file_name = 'file', $size, $mtime= false, $expiry = false)
+    public function flushPDF($data, $pdf_file_name = '', $size, $mtime= false, $expiry = false, $content_type = 'inline')
     {
 
         // sanitize pdf_file_name to prevent file donwload injection attacks
@@ -226,10 +222,10 @@ class ParadoxPDF
         /* Set cache time out to 10 minutes, this should be good enough to work  around an IE bug */
         header( "Expires: ". gmdate( 'D, d M Y H:i:s', time() + 600 ) . ' GMT' );
         header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="' . $pdf_file_name . '"');
+        header('Content-Disposition: '.$content_type);//; filename="' . $pdf_file_name . '"');
         header('Content-Length: ' . $size);
-        header( 'Content-Transfer-Encoding: binary' );
-        header( 'Accept-Ranges: bytes' );
+        header('Content-Transfer-Encoding: binary' );
+        header('Accept-Ranges: bytes' );
 
         ob_end_clean();
 

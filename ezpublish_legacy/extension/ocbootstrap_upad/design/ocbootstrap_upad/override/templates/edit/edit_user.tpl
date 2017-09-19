@@ -214,7 +214,7 @@
 				       	</div>
 			        </div>
 			    {/if}
-			{elseif ne($user.data_map.card.data_text,'')}
+			{else}
 		    	<div class="col-md-3">Possibili tesseramenti</div>
 			        <div class="col-md-9">
 				        <table class="table table-striped">

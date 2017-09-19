@@ -120,6 +120,7 @@
                 <th><strong>Corso</strong></th>
                 <th><strong>Ricevute</strong></th>
             </tr>
+            
             {foreach $subscriptions as $subscription}
                 <tr{if eq($subscription.data_map.annullata.content, 1)} class="danger"{/if}>
                     <td>{$count}</td>
@@ -135,7 +136,16 @@
                         {foreach $subscription.data_map.invoices.content.rows.sequential as $row}
                             {def $invoice = fetch( courses, invoice, hash( 'id', $row.columns[0] ))}
                             <ul class="list-inline">
-                                <li><a class="btn btn-xs btn-danger" href={concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl()}>Stampa</a></li>
+                                <li>
+                                  	{def $url=concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl('no')}
+						            <a class="btn btn-invoice" href='{$url}' title="Apri {$invoice.id}" target="{$invoice.id}"><i class="fa fa-eye"></i></a> 
+            						<a class="btn btn-invoice" href='{$url}' download='invoice{$invoice.id}.pdf' title="Scarica {$invoice.id}"><i class="fa fa-download"></i></a>
+            						{*
+            						{set $url=concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl('no','full')}
+            						<a class="btn btn-invoice" style='cursor: pointer; cursor: hand;' onclick="printPage('{$url}')" title="Stampa"><i class="fa fa-print"></i></a>
+            						*}
+            						{undef $url}
+            					</li>
                                 <li><strong>Nr:</strong> {$invoice.invoice_id}</li>
                                 <li><strong>Data:</strong> {$invoice.date|l10n(shortdate)}</li>
                                 <li><strong>Importo:</strong> {$invoice.total|l10n( 'currency' )}</li>

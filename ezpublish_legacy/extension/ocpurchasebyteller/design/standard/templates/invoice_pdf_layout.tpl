@@ -60,7 +60,7 @@
 {$xhtml}
 {else}
 {def $paradoxpdf_params = hash('xhtml', $xhtml,
-                               'pdf_file_name', $module_result.content_info.url_alias|explode('/')|reverse|extract(0)[0] )}
+                               'pdf_file_name', 'ciao' )}
 
 {paradoxpdf($paradoxpdf_params)}
 {/if}

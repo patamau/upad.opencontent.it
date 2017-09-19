@@ -1,16 +1,11 @@
-{set_defaults( hash(
-	'view_parameters.expiry',0,
-	'view_parameters.dueprint',0,
-) )
-}{if gt($view_parameters.dueprint,0)}{include uri="design:parts/csv_dueprint.tpl"
-}{else}{def $afilter = array( array( 'user/card', '!=', '') )
-}{def $users = fetch( 'content', 'tree', 
+{def $afilter = array( array( 'user/card', '=', '') )
+	$users = fetch( 'content', 'tree', 
 	hash( parent_node_id, 12, 
 		main_node_only, true(),
 		class_filter_type, 'include', 
 		class_filter_array, array( 'user' ),
 		attribute_filter, $afilter,
-		sort_by, array( 'published', true() ) 
+		sort_by, array( 'published', true() ) ,
 		)
 )}{foreach $users as $node
 }{def $subscriptions = fetch(
@@ -56,12 +51,7 @@
 }{/foreach
 }{def 
 	$expdate=makedate($subdate|datetime(custom, '%m')|int(),$subdate|datetime(custom, '%d')|int(),$subdate|datetime(custom, '%Y')|int()|sum(1))
-	$print=true()
-}{if $view_parameters.dueprint|gt(0)}{set $print = and($expdate|sub(currentdate())|gt(0),$annullato|not())
-}{elseif $view_parameters.expiry|gt(0)}{set $print = and($expdate|sub(currentdate())|div(86400)|lt($view_parameters.expiry),$expdate|sub(currentdate())|gt(0),$annullato|not())
-}{elseif $view_parameters.expiry|lt(0)}{set $print = or($expdate|sub(currentdate())|lt(0),$annullato)
-}{else}{set $print = and($expdate|sub(currentdate())|gt(0),$annullato|not())
-}{/if
+	$print = and($expdate|sub(currentdate())|gt(0),$annullato|not())
 }{if $print}{include uri="design:parts/csv_user.tpl" 
 	id=$node.object.id
 	firstname=$node.data_map.first_name.content

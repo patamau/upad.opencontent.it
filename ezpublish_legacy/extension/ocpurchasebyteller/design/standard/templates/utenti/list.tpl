@@ -15,34 +15,87 @@
 
 <section class="col-lg-9 col-md-9 col-sm-8 m_xs_bottom_30">
 
-{def $page_url = '/utenti/list'
-     $page_limit = 30
-     $data = class_search_result(  hash( 'sort_by', hash( 'score', 'desc' ), 'limit', $page_limit ), $view_parameters )
-     $children = array()
-     $count = 0}
-
-  {if and( $data.is_search_request, is_set($view_parameters.class_id) )}
-      {set $children = $data.contents
-           $count = $data.count}
-  {else}
-    {set $children = fetch( 'content', 'tree', hash( parent_node_id, 12, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'user' ), 'limit', $page_limit, 'offset', $view_parameters.offset, sort_by, array( 'name', true() ) ))
-         $count = fetch( 'content', 'tree_count', hash( parent_node_id, 12, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'user' ) ))}
-  {/if}
-
-  {if and( $data.is_search_request, is_set($view_parameters.class_id) )}
-    <div class="navigation clearfix m_bottom_25 m_sm_bottom_20">
-      {foreach $data.fields as $field}
+{def $page_url = '/utenti/list'}
+{if is_set($view_parameters.userid)}
+	{def $count = fetch( 'content', 'tree_count', 
+		hash( 
+			parent_node_id, 12, 
+			main_node_only, true(), 
+			class_filter_type, 'include', 
+			'class_filter_array', array( 'user' ),
+			'extended_attribute_filter', hash(
+				'id', 'filter_user_by_id',
+				'params', hash(
+					'id', $view_parameters.userid
+				)
+			)
+		)
+	)}
+	{if $count|eq(1)}
+		{def $children = fetch( 'content', 'tree', 
+			hash( 
+				parent_node_id, 12, 
+				main_node_only, true(), 
+				class_filter_type, 'include', 
+				'class_filter_array', array( 'user' ),
+				'extended_attribute_filter', hash(
+					'id', 'filter_user_by_id',
+					'params', hash(
+						'id', $view_parameters.userid
+					)
+				)
+			)
+		)}
+		
+		<div class="navigation clearfix m_bottom_25 m_sm_bottom_20 text-cente">
           <a class="tr_delay_hover r_corners button_type_16 f_size_medium bg_dark_color bg_cs_hover color_light m_xs_bottom_5" href={concat( $page_url, $field.remove_view_parameters )|ezurl()}>
-              <i class="fa fa-times m_right_5"></i> <strong>{$field.name}:</strong> {if is_array($field.value)}{foreach $field.value as $value}{$value}{delimiter}, {/delimiter}{/foreach}{else}{$field.value}{/if}
+              <i class="fa fa-times m_right_5"></i> <strong>ID:</strong> {$view_parameters.userid}
           </a>
-          {delimiter}&nbsp;{/delimiter}
-      {/foreach}
-      &nbsp;<a class="tr_delay_hover r_corners button_type_16 f_size_medium bg_scheme_color color_light m_xs_bottom_5" href={$page_url|ezurl()}>Annulla ricerca</a>
-    </div>
-    {if $data.count|eq(0)}
-      <p>Nessun risultato</p>
+	      &nbsp;<a class="tr_delay_hover r_corners button_type_16 f_size_medium bg_scheme_color color_light m_xs_bottom_5" href={$page_url|ezurl()}>Annulla ricerca</a>
+	    </div>
+		
+		{def $redirect=concat('utenti/list/',$view_parameters.userid)}
+		<script language="javascript" type="text/javascript">
+			window.open({$redirect|ezurl('yes','full')},'{$view_parameters.userid}');
+		</script>
+	{else}
+		<div class="alert_box r_corners error m_bottom_10 text-center">
+			<h3>Nessun utente con ID {$view_parameters.userid} trovato!</h3>
+		</div>	    
+		<div class="navigation clearfix m_bottom_25 m_sm_bottom_20 text-center">
+		      &nbsp;<a class="tr_delay_hover r_corners button_type_16 f_size_medium bg_scheme_color color_light m_xs_bottom_5" href={$page_url|ezurl()}>Annulla ricerca</a>
+	    </div>
     {/if}
-  {/if}
+{else}
+	
+	{def $page_limit = 30
+	     $data = class_search_result(  hash( 'sort_by', hash( 'score', 'desc' ), 'limit', $page_limit ), $view_parameters )
+	     $children = array()
+	     $count = 0}
+	
+	  {if and( $data.is_search_request, is_set($view_parameters.class_id) )}
+	      {set $children = $data.contents
+	           $count = $data.count}
+	  {else}
+	    {set $children = fetch( 'content', 'tree', hash( parent_node_id, 12, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'user' ), 'limit', $page_limit, 'offset', $view_parameters.offset, sort_by, array( 'name', true() ) ))
+	         $count = fetch( 'content', 'tree_count', hash( parent_node_id, 12, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'user' ) ))}
+	  {/if}
+	
+	  {if and( $data.is_search_request, is_set($view_parameters.class_id) )}
+	    <div class="navigation clearfix m_bottom_25 m_sm_bottom_20 text-cente">
+	      {foreach $data.fields as $field}
+	          <a class="tr_delay_hover r_corners button_type_16 f_size_medium bg_dark_color bg_cs_hover color_light m_xs_bottom_5" href={concat( $page_url, $field.remove_view_parameters )|ezurl()}>
+	              <i class="fa fa-times m_right_5"></i> <strong>{$field.name}:</strong> {if is_array($field.value)}{foreach $field.value as $value}{$value}{delimiter}, {/delimiter}{/foreach}{else}{$field.value}{/if}
+	          </a>
+	          {delimiter}&nbsp;{/delimiter}
+	      {/foreach}
+	      &nbsp;<a class="tr_delay_hover r_corners button_type_16 f_size_medium bg_scheme_color color_light m_xs_bottom_5" href={$page_url|ezurl()}>Annulla ricerca</a>
+	    </div>
+	    {if $data.count|eq(0)}
+	      <p>Nessun risultato</p>
+	    {/if}
+	  {/if}
+{/if}
 
   <table class="table">
   {foreach $children as $node}
@@ -81,7 +134,6 @@
             item_limit=$page_limit}
 
 </section>
-
     <aside class="col-lg-3 col-md-3 col-sm-4 m_xs_bottom_30">
     	{*
       <figure class="widget shadow r_corners wrapper m_bottom_30">
@@ -98,7 +150,6 @@
       *}
       
         {class_search_form( 'user', hash( 'RedirectUrlAlias', $page_url ) )}
-    </aside>
     
     
 </div>

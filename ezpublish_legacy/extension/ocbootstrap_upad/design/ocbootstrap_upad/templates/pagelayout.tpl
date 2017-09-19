@@ -31,6 +31,7 @@
 
 </head>
 <body>
+
 {*<script src="<Path>/cookiechoices.js"></script>*}
 {*ezscript_require( array( 'cookiechoices.js' ))*}
 {*<script src="{'cookiechoices.js'|ezdesign('no')}"></script>*}

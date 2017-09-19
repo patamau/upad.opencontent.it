@@ -75,8 +75,28 @@ sort_by, array(
     <table class="table table-striped m_top_20">
         <tr>
             <th><strong>#</strong></th>
-            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/0')|ezurl('no')}"><i class="fa fa-sort-desc"></i></a> <strong>Data</strong></th>
-            <th><a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(oderasc)/1')|ezurl('no')}"><i class="fa fa-sort-desc"></i></a> <strong>Nominativo</strong></th>
+            <th>
+            {if $orderby|ne('published')}
+            	<a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/0')|ezurl('no')}" title="Ordina dal pi&ugrave recente"><i class="fa fa-sort-desc"></i></a>
+            {else}
+            	{if $orderasc|not)}
+            		<a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/1')|ezurl('no')}" title="Ordina dal pi&ugrave vecchio"><i class="fa fa-sort-asc"></i></a>
+            	{else}
+            		<a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/published/(orderasc)/0')|ezurl('no')}" title="Ordina dal pi&ugrave recente"><i class="fa fa-sort-desc"></i></a>
+            	{/if}
+            {/if} 
+            <strong>Data</strong></th>
+            <th>
+            {if $orderby|ne('name')}
+           		<a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(oderasc)/0')|ezurl('no')}" title="Z-A"><i class="fa fa-sort-desc"></i></a>
+           	{else}
+            	{if $orderasc|not)}
+            		<a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(orderasc)/1')|ezurl('no')}" title="A-Z"><i class="fa fa-sort-asc"></i></a>
+            	{else}
+            		<a href="{concat('/courses/list/',$course.id)|concat('/(orderby)/name/(orderasc)/0')|ezurl('no')}" title="Z-A"><i class="fa fa-sort-desc"></i></a>
+            	{/if}
+            {/if} 
+            <strong>Nominativo</strong></th>
             <th><strong>Ricevute</strong></th>
             <th></th>
         </tr>

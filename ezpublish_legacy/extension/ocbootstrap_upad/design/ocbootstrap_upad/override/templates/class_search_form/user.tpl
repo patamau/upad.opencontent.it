@@ -27,7 +27,23 @@
                     {* add search user by id *}
                 {/foreach}
                 
+                <li>
+				    <a href="#" class="f_size_large color_dark d_block relative">
+				        <b>Identificativo</b>
+				        <span class="bg_light_color_1 r_corners f_right color_dark talign_c"></span>
+				    </a>
+				    <!--second level-->
+				    <ul class="d_none">
+				        <li>
+				            <fieldset class="m_bottom_15 m_top_5">
+				                <input type="text" class="form-control" name="userid" id="userid" value="">
+				            </fieldset>
+				        </li>
+				    </ul>
+				</li>
+                
                 {undef $additional_fields}
+                
                 <li class="t_align_c m_top_20">
                     <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Cerca utente</button>
                 </li>

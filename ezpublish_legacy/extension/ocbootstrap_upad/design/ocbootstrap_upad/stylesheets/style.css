@@ -512,9 +512,16 @@ a:focus {
 
 ul.list-inline {
 	white-space: nowrap;
+	padding-bottom: 5px;
 }
 
 .list-inline>li {
 	padding-right: 0px;
 	padding-left: 0px;
+}
+
+.btn-invoice {
+	padding: 2px 10px;
+    border: 1px solid silver;
+    line-height: 1;
 }

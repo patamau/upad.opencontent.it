@@ -23,10 +23,11 @@
       <th><strong>Numero</strong></th>
       <th><strong>Data</strong></th>
       <th><strong>Totale</strong></th>
-      <th></th>
+      <th style="width:200px"></th>
     </tr>
 
-  {def $subscription = fetch( 'content', 'object', hash( 'remote_id', concat( 'subscription_', $course.id, '_', $user.id )  ) )}
+  {def $subscription = fetch( 'content', 'object', hash( 'remote_id', concat( 'subscription_', $course.id, '_', $user.id )  ) )
+  	$url=''}
   {if $subscription}
     {foreach $subscription.data_map.invoices.content.rows.sequential as $row}
       {def $invoice = fetch( courses, invoice, hash( 'id', $row.columns[0] ))}
@@ -35,15 +36,20 @@
           <td>{$invoice.date|l10n(shortdate)}</td>
           <td>{$invoice.total|l10n( 'currency' )}</td>
           <td>
-            {*<a class="btn btn-sm btn-success" href={concat("invoice/view/",$invoice.id)|ezurl()}>Vedi</a>*}
-            <a class="btn btn-sm btn-danger" href={concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl()}>Stampa</a>
+          	{set $url=concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl('no')}
+            <a class="btn btn-sm btn-danger" href='{$url}' title="Apri {$invoice.id}" target="{$invoice.id}"><i class="fa fa-eye"></i> Apri</a>
+            <a class="btn btn-sm btn-danger" href='{$url}' download="invoice{$invoice.id}.pdf" title="Scarica {$invoice.id}"><i class="fa fa-download"></i> Scarica</a>
+            {*
+          	{set $url=concat("layout/set/pdf/invoice/view/",$invoice.id)|ezurl('no','full')}
+            <a class="btn btn-sm btn-danger" onclick="printPage('{$url}')" title="Stampa"><i class="fa fa-print"></i></a>
+            *}
           </td>
         </tr>
       {undef $invoice}
     {/foreach}
   {/if}
   </table>
-
+  {undef $subscription $url}
 
 
 </div>

@@ -1,7 +1,7 @@
 <div class="row clearfix">
     {if $current_user.is_logged_in}
         <nav class="col-lg-6 col-md-6 col-sm-6 t_xs_align_c">
-            <ul class="d_inline_b horizontal_list clearfix f_size_small users_nav">
+            <ul class="d_inline_b horizontal_list clearfix f_size_large users_nav">
                 <li id="logout"><a href={"/user/logout"|ezurl} title="{'Logout'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-sign-out"></i></a></li>
                 <li id="myprofile"><a href={"/user/edit/"|ezurl} title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}" title="{'My profile'|i18n('design/ocbootstrap/pagelayout')}">{$current_user.contentobject.name|wash}</a></li>
                 <li id="basket"><a href={"/shop/basket"|ezurl} title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}" title="{'Shopping basket'|i18n('design/ocbootstrap/pagelayout')}"><i class="fa fa-shopping-cart"></i></a></li>
