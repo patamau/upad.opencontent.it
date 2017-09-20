@@ -54,19 +54,25 @@
 					<tbody>
 						<tr>
 						{def $where=concat( 'layout/set/csv/content/view/csv/5/(dueprint)/1')|ezurl('no')}
-		                <td>Da stampare:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='dueprint.csv'>{'Scarica CSV'}</a></td>
+		                <td>Da stampare:</td><td>
+		                <span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small"><i class="fa fa-exclamation-circle"></i> ATTENZIONE!
+La generazione di questo documento richieder&agrave; qualche minuto.
+Una volta cliccato sul collegamento attendere la generazione del file per il download.</span>
+		                <a href='{$where}' download='dueprint.csv'><i class="fa fa-download"></i> {'Scarica CSV'}</a></td>
+		                <td>
+		                </a></td>
 		                {undef $where}
 		                </tr><tr>
 						{def $where=concat( 'layout/set/csv/content/view/csv/5')|ezurl('no')}
-		                <td>Validi:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='users.csv'>{'Scarica CSV'}</a></td>
+		                <td>Validi:</td><td><a href='{$where}' download='users.csv'><i class="fa fa-download"></i> {'Scarica CSV'}</a></td>
 		                {undef $where}
 		                </tr><tr>
 		                {def $where=concat( 'layout/set/csv/content/view/csv/5/(expiry)/30')|ezurl('no')}
-		                <td>In scadenza (30 giorni):</td><td><i class="fa fa-download"></i> <a href='{$where}' download='expiring.csv'>{'Scarica CSV'}</a></td>
+		                <td>In scadenza (30 giorni):</td><td><a href='{$where}' download='expiring.csv'><i class="fa fa-download"></i> {'Scarica CSV'}</a></td>
 		                {undef $where}
 		                </tr><tr>
 		                {def $where=concat( 'layout/set/csv/content/view/csv/5/(expiry)/-1')|ezurl('no')}
-		                <td>Scaduti o annullati:</td><td><i class="fa fa-download"></i> <a href='{$where}' download='expired.csv'>{'Scarica CSV'}</a></td>
+		                <td>Scaduti o annullati:</td><td><a href='{$where}' download='expired.csv'><i class="fa fa-download"></i> {'Scarica CSV'}</a></td>
 		                {undef $where}
 		                </tr>
 	                </tbody>

@@ -50,7 +50,7 @@ switch ($action) {
         $count  = eZContentObjectTreeNode::subTreeCountByNodeID( $params, 1 );
 
         $data []= array(
-            //'Id',
+            'Id',
             'Nome',
         	'Cognome',
         	'Tessera',
@@ -100,7 +100,7 @@ switch ($action) {
                         $e = eZContentObject::fetch($cDataMap['ente']->toString());
 
                         $temp = array(
-                            //'id'  => $user->attribute('id'),
+                            'id'  => $user->attribute('id'),
                             'name' => $uDataMap['first_name']->toString(),
                         	'lastname' => $uDataMap['last_name']->toString(),
                         	'card' => $uDataMap['card']->toString(),
