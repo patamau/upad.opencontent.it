@@ -120,7 +120,7 @@ class TemplateProva_operatorOperator
     AND last_name_attr.version = users.current_version AND last_name_attr.contentobject_id = users.id AND last_name_attr.contentclassattribute_id = 9
     AND data_nascita_attr.version = users.current_version AND data_nascita_attr.contentobject_id = users.id AND data_nascita_attr.contentclassattribute_id = 462
     AND email_attr.version = users.current_version AND email_attr.contentobject_id = users.id AND email_attr.contentclassattribute_id = 12
-    AND annullato_attr.contentobject_id = subscriptions.id AND annullato_attr.contentclassattribute_id = 465
+    AND annullato_attr.version = subscriptions.current_version AND annullato_attr.contentobject_id = subscriptions.id AND annullato_attr.contentclassattribute_id = 465
 
 	AND user_link.from_contentobject_id=subscriptions.id AND users.id=user_link.to_contentobject_id
 	AND card_attribute.contentobject_id=users.id AND card_attribute.version=users.current_version
