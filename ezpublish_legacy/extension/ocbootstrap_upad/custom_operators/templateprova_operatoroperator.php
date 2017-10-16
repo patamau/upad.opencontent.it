@@ -102,22 +102,26 @@ class TemplateProva_operatorOperator
             {
                 $bd_user = "upad_db";
                 $db_pwd = "GweltK5q2vptWdDB";//Sarebbe meglio prendere le credenziali da un altro file
-                $operatorValue = ''; /*INSERISCO NELLA VARIABILE DI INPUT LA STRINGA CSV RISULTANTE*/
+                $operatorValue = 'aaaaaa'; /*INSERISCO NELLA VARIABILE DI INPUT LA STRINGA CSV RISULTANTE*/
                 
                 /* QUERY CHE SELEZIONA GLI UTENTI ISCRITTI AD UN CORSO (cioè che hanno una sottoscrizione non ancora scaduta)
                  * CHE PREVEDE UN TESSERAMENTO E CHE NON HANNO ANCORA ASSOCIATA UNA TESSERA MAGNETICA
                  */
-                $myQuery = " SELECT DISTINCT users.id as id, first_name_attr.data_text as first_name, last_name_attr.data_text as last_name, data_nascita_attr.data_text as data_nascita
-	FROM ezcontentobject as subscriptions, ezcontentobject as users, ezcontentobject as courses,
-	ezcontentobject_link as user_link, ezcontentobject_link as course_link, ezcontentobject_link as areatematica_link, 
-    ezcontentobject_attribute as card_attribute, ezcontentobject_attribute as first_name_attr, ezcontentobject_attribute as last_name_attr, 
-    ezcontentobject_attribute as data_nascita_attr 
-	WHERE subscriptions.contentclass_id=49 AND user_link.from_contentobject_version=subscriptions.current_version
+                $myQuery = " SELECT users.id as id, first_name_attr.data_text as first_name, last_name_attr.data_text as last_name, data_nascita_attr.data_text as data_nascita, 
+    email_attr.data_text as email, DATE_ADD(from_unixtime(subscriptions.published), INTERVAL 1 YEAR) as scadenza, annullato_attr.data_int as annullata       
+    FROM ezcontentobject as subscriptions, ezcontentobject as users, ezcontentobject as courses, 
+	ezcontentobject_link as user_link, ezcontentobject_link as course_link, ezcontentobject_link as areatematica_link,  
+    ezcontentobject_attribute as card_attribute, ezcontentobject_attribute as first_name_attr, ezcontentobject_attribute as last_name_attr,  
+    ezcontentobject_attribute as data_nascita_attr, ezcontentobject_attribute as email_attr, ezcontentobject_attribute as annullato_attr 
+ 
+	WHERE subscriptions.contentclass_id=49 AND user_link.from_contentobject_version=subscriptions.current_version  
 
     AND first_name_attr.version = users.current_version AND first_name_attr.contentobject_id = users.id AND first_name_attr.contentclassattribute_id = 8 
     AND last_name_attr.version = users.current_version AND last_name_attr.contentobject_id = users.id AND last_name_attr.contentclassattribute_id = 9
     AND data_nascita_attr.version = users.current_version AND data_nascita_attr.contentobject_id = users.id AND data_nascita_attr.contentclassattribute_id = 462
-  
+    AND email_attr.version = users.current_version AND email_attr.contentobject_id = users.id AND email_attr.contentclassattribute_id = 12
+    AND annullato_attr.contentobject_id = subscriptions.id AND annullato_attr.contentclassattribute_id = 465
+
 	AND user_link.from_contentobject_id=subscriptions.id AND users.id=user_link.to_contentobject_id
 	AND card_attribute.contentobject_id=users.id AND card_attribute.version=users.current_version
     AND DATE_ADD(from_unixtime(subscriptions.published), INTERVAL 1 YEAR) >= NOW() 
@@ -152,7 +156,11 @@ class TemplateProva_operatorOperator
                     $operatorValue .= $row['id'] . ',';
                     $operatorValue .= $row['first_name'] . ',';
                     $operatorValue .= $row['last_name']  . ',';
-                    $operatorValue .= $row['data_nascita'] ;
+                    $operatorValue .= $row['data_nascita'] . ',';
+                    $operatorValue .= json_decode($row['email'])->email . ','; //da tirare fuori
+                    $operatorValue .= ','; //campo tessera vuoto
+                    $operatorValue .= $row['scadenza'] . ','; 
+                    $operatorValue .= $row['annullata'] . ','; 
                     $operatorValue .= "\n";
                     
                 }
