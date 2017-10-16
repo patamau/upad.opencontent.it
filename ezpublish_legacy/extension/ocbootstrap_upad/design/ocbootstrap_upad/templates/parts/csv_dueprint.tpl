@@ -1,4 +1,4 @@
-{def $afilter = array( array( 'user/card', '=', '') )
+{*def $afilter = array( array( 'user/card', '=', '') )
 	$users = fetch( 'content', 'tree', 
 	hash( parent_node_id, 12, 
 		main_node_only, true(),
@@ -52,14 +52,8 @@
 }{def 
 	$expdate=makedate($subdate|datetime(custom, '%m')|int(),$subdate|datetime(custom, '%d')|int(),$subdate|datetime(custom, '%Y')|int()|sum(1))
 	$print = and($expdate|sub(currentdate())|gt(0),$annullato|not())
-}{if $print}{include uri="design:parts/csv_user.tpl" 
-	id=$node.object.id
-	firstname=$node.data_map.first_name.content
-	surname=$node.data_map.last_name.content
-	birthdate=$node.data_map.data_nascita.data_text|strtotime()|datetime('custom','%d/%m/%Y')
-	email=$node.data_map.user_account.content.email
-	card=$node.data_map.card.content
-	expdate=$expdate
-	anullato=$annullato
-	}{undef $subscriptions $card_course $subcourse $subdate $expdate $annullato}{'\r\n'
-}{/if}{/foreach}{/if}
+}{if $print}{$node.object.id},{$node.data_map.first_name.content},{$node.data_map.last_name.content}{'\r\n'
+}{/if}{undef $subscriptions $card_course $subcourse $subdate $expdate $annullato}{/foreach}
+{/if*}
+{def $value="aaaa"}
+{$value|prova_operator}
