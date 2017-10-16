@@ -102,7 +102,7 @@ class TemplateProva_operatorOperator
             {
                 $bd_user = "upad_db";
                 $db_pwd = "GweltK5q2vptWdDB";//Sarebbe meglio prendere le credenziali da un altro file
-                $operatorValue = 'aaaaaa'; /*INSERISCO NELLA VARIABILE DI INPUT LA STRINGA CSV RISULTANTE*/
+                $operatorValue = ''; /*INSERISCO NELLA VARIABILE DI INPUT LA STRINGA CSV RISULTANTE*/
                 
                 /* QUERY CHE SELEZIONA GLI UTENTI ISCRITTI AD UN CORSO (cioè che hanno una sottoscrizione non ancora scaduta)
                  * CHE PREVEDE UN TESSERAMENTO E CHE NON HANNO ANCORA ASSOCIATA UNA TESSERA MAGNETICA
@@ -168,7 +168,6 @@ class TemplateProva_operatorOperator
                 mysql_free_result($result);
                 
                 trim($operatorValue);
-                $operatorValue = strtoupper($operatorValue);
                 
             } break;
         }
