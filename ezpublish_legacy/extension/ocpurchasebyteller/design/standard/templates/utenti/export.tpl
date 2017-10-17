@@ -55,9 +55,6 @@
 						<tr>
 						{def $where=concat( 'layout/set/csv/content/view/csv/5/(dueprint)/1')|ezurl('no')}
 		                <td>Da stampare:</td><td>
-		                <span class="tooltip tr_all_hover r_corners bg_scheme_color color_light f_size_small"><i class="fa fa-exclamation-circle"></i> ATTENZIONE!
-La generazione di questo documento richieder&agrave; qualche minuto.
-Una volta cliccato sul collegamento attendere la generazione del file per il download.</span>
 		                <a href='{$where}' download='dueprint.csv'><i class="fa fa-download"></i> {'Scarica CSV'}</a></td>
 		                <td>
 		                </a></td>

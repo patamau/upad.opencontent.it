@@ -100,8 +100,9 @@ class TemplateProva_operatorOperator
         {
             case 'prova_operator':
             {
-                $bd_user = "upad_db";
-                $db_pwd = "GweltK5q2vptWdDB";//Sarebbe meglio prendere le credenziali da un altro file
+            	$siteConfig = eZINI::instance( 'site.ini' );
+            	$bd_user = $siteConfig->variable( 'DatabaseSettings', 'User' );
+            	$db_pwd = $siteConfig->variable( 'DatabaseSettings', 'Password' );
                 $operatorValue = ''; /*INSERISCO NELLA VARIABILE DI INPUT LA STRINGA CSV RISULTANTE*/
                 
                 /* QUERY CHE SELEZIONA GLI UTENTI ISCRITTI AD UN CORSO (cioè che hanno una sottoscrizione non ancora scaduta)
@@ -124,6 +125,7 @@ class TemplateProva_operatorOperator
 
 	AND user_link.from_contentobject_id=subscriptions.id AND users.id=user_link.to_contentobject_id
 	AND card_attribute.contentobject_id=users.id AND card_attribute.version=users.current_version
+    AND annullato_attr.data_int=0
     AND DATE_ADD(from_unixtime(subscriptions.published), INTERVAL 1 YEAR) >= NOW() 
 	AND card_attribute.contentclassattribute_id=483 AND (card_attribute.data_text LIKE '' OR card_attribute.data_text IS NULL)
 	 AND course_link.from_contentobject_id=subscriptions.id AND courses.id=course_link.to_contentobject_id AND course_link.from_contentobject_version=subscriptions.current_version AND areatematica_link.from_contentobject_id=courses.id AND areatematica_link.from_contentobject_version=courses.current_version
