@@ -10,18 +10,43 @@
 
                 </div>
 
-                <form method="post" action={"invoice/manage"|ezurl}  class="form-inline m_bottom_30">
+                <form method="post" action={"invoice/manage"|ezurl}  class="form-inline m_bottom_30" id="invoice-form">
                     <input type="hidden" name="action" value="search">
 
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom:10px;width:100%;">
                         <label for="ente">Ente</label>
-                        <select name="ente" id="ente" class="form-control">
+                        <select name="ente" id="ente" class="form-control" onchange="$('#corso-div').remove()" style="width:100%">
                             <option value="all">Tutti</option>
                             {foreach $enti as $e}
                                 <option value="{$e.contentobject_id}"{if eq($ente, $e.contentobject_id)} selected="selected"{/if}>{$e.name}</option>
                             {/foreach}
                         </select>
                     </div>
+                    {if $ente}
+                    <div class="form-group" id="corso-div" style="margin-bottom:10px;width:100%;">
+	                    		<label for="corso">Corso</label>
+	                    		{if $ente|eq('all')}
+									{def $corsi = fetch( 'content', 'tree', hash( parent_node_id, 2, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'corso' )))}
+								{else}
+								{def $corsi = fetch( 'content', 'tree', hash( parent_node_id, 2, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'corso' ),
+					            	'extended_attribute_filter', hash(
+								        'id', 'filter_course_by_ente',
+								        'params', hash(
+								        	'ente',$ente
+								        )
+								    )
+								))}
+								{/if}
+			                	<select name="corso" id="corso" class="form-control" style="width: 100%">
+			                		<option value="all"{if $corso|eq('all')} selected="selected"{/if}>Tutti</option>
+			                		{foreach $corsi as $c}
+			                			<option value="{$c.contentobject_id}"{if eq($corso, $c.contentobject_id)} selected="selected"{/if}>{$c.name}</option>
+			                		{/foreach}
+			                	</select>
+	                    	</div>
+                    {else}
+                    	<input type="hidden" name="corso" value="all">
+                    {/if}
                     <div class="form-group">
                         <label for="da">Da</label>
                         <div class="input-group">
@@ -36,41 +61,11 @@
                             <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default" name="template" value="search">Cerca</button>
+
+                    <button type="submit" class="btn btn-success" name="template" value="search" class="center">Cerca</button>
+                    </div>
                 </form>
-                {if gt($invoices|count(), 0)}
-	                <form method="post" action={"invoice/manage"|ezurl}  class="form-inline m_bottom_30">
-	                    <input type="hidden" name="action" value="search">
-	                    <input type="hidden" name="ente" value="{$ente}">
-	                    <input type="hidden" name="da" value="{$da}">
-	                    <input type="hidden" name="a" value="{$a}">
-	                    	<div class="form-group">
-	                    		<label for="corso">Corso</label>
-	                    		{if $ente|eq('all')}
-									{def $corsi = fetch( 'content', 'tree', hash( parent_node_id, 2, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'corso' )))}
-								{else}
-								{def $corsi = fetch( 'content', 'tree', hash( parent_node_id, 2, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'corso' ),
-					            	'extended_attribute_filter', hash(
-								        'id', 'filter_course_by_ente',
-								        'params', hash(
-								        	'ente',$ente
-								        )
-								    )
-								))}
-								{/if}
-			                	<select name="corso" id="corso" class="form-control">
-			                		<option value="all"{if $corso|eq('all')} selected="selected"{/if}>Tutti</option>
-			                		{foreach $corsi as $c}
-			                			<option value="{$c.contentobject_id}"{if eq($corso, $c.contentobject_id)} selected="selected"{/if}>{$c.name}</option>
-			                		{/foreach}
-			                	</select>
-	                    	</div>
-	                    <button type="submit" class="btn btn-default" name="template" value="search" >Filtra</button>
-	                </form>
-                	{def $corsofiltro = fetch( 'content', 'object', hash( 'object_id', $corso ) )}
-                	{if $corsofiltro}
-					Filtro per corso: {$corsofiltro.name|wash} ({$corso})<br/>
-					{/if}
+                	{if gt($invoices|count(), 0)}
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -93,7 +88,7 @@
                                     <td>{$user.name}</td>
                                     <td class="text-right">{$i.total|l10n( 'currency' )}</td>
                                     <td>{$i.ente.name}</td>
-                                    <td><a class="btn btn-sm btn-danger" href={concat("layout/set/pdf/invoice/view/",$i.id)|ezurl()}>Stampa</a></td>
+                                    <td><a class="btn btn-sm btn-danger" href={concat("layout/set/pdf/invoice/view/",$i.id)|ezurl()} target="_blank">Stampa</a></td>
                                 </tr>
                                 {undef $user}
                             {/foreach}
@@ -105,12 +100,12 @@
                         </tbody>
                     </table>
                     <div class="pull-right">
-                        <a href="{concat( 'layout/set/a4/invoice/export/customers/', $ente, '/', $corso,'/', $da, '/', $a)|ezurl(no)}" class="btn btn-warning">Esporta</a>
-                        <a href="{concat( 'layout/set/pdf/invoice/export/print/', $ente, '/', $corso,'/', $da, '/', $a)|ezurl(no)}" class="btn btn-danger">Stampa</a>
+                        <a href="{concat( 'layout/set/a4/invoice/export/customers/', $ente, '/', $corso,'/', $da, '/', $a)|ezurl(no)}" target="_blank" class="btn btn-warning">Esporta</a>
+                        <a href="{concat( 'layout/set/pdf/invoice/export/print/', $ente, '/', $corso,'/', $da, '/', $a)|ezurl(no)}" target="_blank" class="btn btn-danger">Stampa</a>
                     </div>
                 {else}
                     {if $ente}
-                        <p>Non sono presenti fatture per il periodo/ente selezionato.</p>
+                        <p>Non sono presenti fatture per il periodo, ente e corso selezionato.</p>
                     {/if}
                 {/if}
             </div>

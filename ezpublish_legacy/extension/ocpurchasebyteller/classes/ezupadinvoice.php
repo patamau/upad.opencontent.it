@@ -215,7 +215,7 @@ class eZUpadInvoice extends eZPersistentObject
                      invoice_id=$invoiceID" );
     }
     
-    public static function  fetchInvoicesByCourse($corso, $da, $a){
+    public static function  fetchInvoicesByCourse($corso, $da, $a, $quick=false){
         
         //ESCAPE DEI DATI IN INPUT
         $corso = intval($corso); //l'id del corso
@@ -274,8 +274,11 @@ class eZUpadInvoice extends eZPersistentObject
         }
         else{
             while ($row = mysql_fetch_assoc($result)) {
-                //$invoices[] = new eZUpadInvoice( $row );
-                $invoices[] = eZUpadInvoice::fetch($row["id"]);
+            	if($quick){
+                	$invoices[] = new eZUpadInvoice( $row );
+            	}else{
+                	$invoices[] = eZUpadInvoice::fetch($row["id"]);
+            	}
             }
         }
         
