@@ -1,5 +1,7 @@
 <?php
 
+
+
 $module = $Params['Module'];
 $http   = eZHTTPTool::instance();
 $tpl    = eZTemplate::factory();
@@ -11,6 +13,8 @@ $da     = $Params['da'];
 $a      = $Params['a'];
 
 $conditions = array();
+$invoices = array();
+
 if ($ente && $ente != 'all') {
     $conditions ['ente_id']= $ente;
 }
@@ -24,10 +28,9 @@ if (!$a) {
     $conditions ['date'][]= 'range';
     $conditions ['date'][]= array(strtotime($da . ' 00:00'), strtotime($a . ' 23:59'));
 }
-
 if ($corso && $corso != 'all') {
-	//$invoices = fetchInvoicesByCourse($corso, $da, $a); 
-	$invoices = eZUpadInvoice::fetchList($conditions);
+    $invoices = eZUpadInvoice::fetchInvoicesByCourse($corso, $da, $a); 
+	//$invoices = eZUpadInvoice::fetchList($conditions);
 }else{
 	$invoices = eZUpadInvoice::fetchList($conditions);	
 }

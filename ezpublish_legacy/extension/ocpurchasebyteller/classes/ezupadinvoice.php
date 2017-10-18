@@ -214,4 +214,75 @@ class eZUpadInvoice extends eZPersistentObject
                      WHERE
                      invoice_id=$invoiceID" );
     }
+    
+    public static function  fetchInvoicesByCourse($corso, $da, $a){
+        
+        //ESCAPE DEI DATI IN INPUT
+        $corso = intval($corso); //l'id del corso
+        //$da = mysql_real_escape_string($da); // la data di partenza -> no escape perchè dopo strtotime()
+        //$a = mysql_real_escape_string($a); //la data di fine
+        
+        //CREAZIONE INTERVALLO DI DATE
+        $da = strtotime($da .  ' 00:00');
+        if (!$a  || $a = "") {
+            $a =  strtotime($da . ' 23:59');
+        }
+        else{
+            $a =  strtotime($a . ' 23:59');
+        }
+        
+        $siteConfig = eZINI::instance( 'site.ini' );
+        $bd_user = $siteConfig->variable( 'DatabaseSettings', 'User' );
+        $db_pwd = $siteConfig->variable( 'DatabaseSettings', 'Password' );
+        
+        
+        $myQuery = "
+        SELECT  invoices.id 
+        FROM upad_invoice as invoices JOIN upad_invoice_meta as invoices_info ON (invoices.id = invoices_info.invoice_id)
+            JOIN ezcontentobject as users ON (invoices.user_id =  users.id)
+            JOIN ezcontentobject as courses ON (invoices_info.course_id = courses.id)
+                
+        WHERE   courses.id = ". $corso ."
+                AND invoices.date >= ". $da ."
+                AND invoices.date <= ". $a  ."
+        ";
+        
+        $error   = "";
+        
+        $link;
+        if (!$link = mysql_connect('localhost', $bd_user, $db_pwd)) {
+            $error .=  'Could not connect to mysql';
+            //exit;
+        }
+        
+        //selezione del db
+        if (!mysql_select_db('ez_upad', $link)) {
+            $error .= 'Could not select database';
+            //exit;
+        }
+        
+        /*esecuzione della query*/
+        $result = mysql_query($myQuery, $link);
+        
+        $invoices = array();
+        
+        if (!$result) {
+            $error .= "DB Error, could not query the database\n";
+            $error .= 'MySQL Error: ' . mysql_error(). "\n";
+            $error .= 'Contatta l\'amministratore del sito.\n';
+            //exit;
+        }
+        else{
+            while ($row = mysql_fetch_assoc($result)) {
+                //$invoices[] = new eZUpadInvoice( $row );
+                $invoices[] = eZUpadInvoice::fetch($row["id"]);
+            }
+        }
+        
+        mysql_free_result($result);
+        
+        if($error) eZDebug::writeError($error);
+        
+        return $invoices;
+    }
 }
