@@ -17,4 +17,6 @@ ezpublish_legacy/settings/siteaccess/*/site.ini.append.php
 ezpublish_legacy/extension/ocwscourse/settings/ocwscourse.ini
 ezpublish_legacy/extension/ocsparkasse/settings/sparkasse.ini
 
+.project
+
 *~
