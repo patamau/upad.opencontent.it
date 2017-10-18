@@ -31,8 +31,7 @@ switch ($action) {
         }
 
         if ($corso && $corso != 'all') {
-            $invoices = eZUpadInvoice::fetchInvoicesByCourse($corso, $da, $a, true);
-            //$invoices = eZUpadInvoice::fetchList($conditions);
+            $invoices = eZUpadInvoice::fetchInvoicesByCourse($corso, $da, $a);
         }else{
             $invoices = eZUpadInvoice::fetchList($conditions);
         }
