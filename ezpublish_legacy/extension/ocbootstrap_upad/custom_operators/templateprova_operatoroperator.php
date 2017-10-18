@@ -101,8 +101,10 @@ class TemplateProva_operatorOperator
             case 'prova_operator':
             {
             	$siteConfig = eZINI::instance( 'site.ini' );
-            	$bd_user = $siteConfig->variable( 'DatabaseSettings', 'User' );
-            	$db_pwd = $siteConfig->variable( 'DatabaseSettings', 'Password' );
+		        $db_user = $siteConfig->variable( 'DatabaseSettings', 'User' );
+		        $db_pwd = $siteConfig->variable( 'DatabaseSettings', 'Password' );
+		        $db_server = $siteConfig->variable( 'DatabaseSettings', 'Server' );
+		        $db_name = $siteConfig->variable( 'DatabaseSettings', 'Database' );
                 $operatorValue = ''; /*INSERISCO NELLA VARIABILE DI INPUT LA STRINGA CSV RISULTANTE*/
                 
                 /* QUERY CHE SELEZIONA GLI UTENTI ISCRITTI AD UN CORSO (cioè che hanno una sottoscrizione non ancora scaduta)
@@ -133,13 +135,13 @@ class TemplateProva_operatorOperator
                 
                 /*connessione al dbms*/
                 $link;
-                if (!$link = mysql_connect('localhost', $bd_user, $db_pwd)) {
+                if (!$link = mysql_connect($db_server, $db_user, $db_pwd)) {
                     $operatorValue .=  'Could not connect to mysql';
                     //exit;
                 }
                 
                 /*selezione del db*/
-                if (!mysql_select_db('ez_upad', $link)) {
+                if (!mysql_select_db($db_name, $link)) {
                     $operatorValue .= 'Could not select database';
                     //exit;
                 }
