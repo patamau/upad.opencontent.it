@@ -39,6 +39,15 @@
                     <button type="submit" class="btn btn-default" name="template" value="search">Cerca</button>
                 </form>
                 {if gt($invoices|count(), 0)}
+                	{def $corsi = array(36297,42245)}
+					CORSO: {$corso}<br/>
+					ENTE: {$ente}<br/>
+                	{set $corso = $corsi[0]}
+                	<select name="corso" id="corso" class="form-control">
+                		{foreach $corsi as $c}
+                			<option value="{$c}">{$c}</option>
+                		{/foreach}
+                	</select>
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -73,8 +82,8 @@
                         </tbody>
                     </table>
                     <div class="pull-right">
-                        <a href="{concat( 'layout/set/a4/invoice/export/customers/', $ente, '/', $da, '/', $a)|ezurl(no)}" class="btn btn-warning">Esporta</a>
-                        <a href="{concat( 'layout/set/pdf/invoice/export/print/', $ente, '/', $da, '/', $a)|ezurl(no)}" class="btn btn-danger">Stampa</a>
+                        <a href="{concat( 'layout/set/a4/invoice/export/customers/', $ente, '/', $corso,'/', $da, '/', $a)|ezurl(no)}" class="btn btn-warning">Esporta</a>
+                        <a href="{concat( 'layout/set/pdf/invoice/export/print/', $ente, '/', $corso,'/', $da, '/', $a)|ezurl(no)}" class="btn btn-danger">Stampa</a>
                     </div>
                 {else}
                     {if $ente}

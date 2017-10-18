@@ -21,7 +21,7 @@ $ViewList["manage"] = array(
 $ViewList["export"] = array(
     "functions" => array( 'manage' ),
     "script" => "export.php",
-    "params" => array('type', 'ente', 'da', 'a')
+    "params" => array('type', 'ente', 'corso', 'da', 'a')
 );
 
 $ViewList["report_aree"] = array(

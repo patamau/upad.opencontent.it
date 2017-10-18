@@ -6,6 +6,7 @@ $tpl    = eZTemplate::factory();
 
 $type   = $Params['type'];
 $ente   = $Params['ente'];
+$corso  = $Params['corso'];
 $da     = $Params['da'];
 $a      = $Params['a'];
 
@@ -24,11 +25,17 @@ if (!$a) {
     $conditions ['date'][]= array(strtotime($da . ' 00:00'), strtotime($a . ' 23:59'));
 }
 
-
-$invoices = eZUpadInvoice::fetchList($conditions);
+if ($corso && $corso != 'all') {
+	//$invoices = fetchInvoicesByCourse($corso, $da, $a); 
+	$invoices = eZUpadInvoice::fetchList($conditions);
+}else{
+	$invoices = eZUpadInvoice::fetchList($conditions);	
+}
 $tpl->setVariable( "da", $da );
 $tpl->setVariable( "a", $a );
 $tpl->setVariable( "invoices", $invoices );
+$tpl->setVariable( "corso", $corso);
+$tpl->setVariable( "ente", $ente);
 
 
 switch ($type) {
