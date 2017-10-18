@@ -12,4 +12,10 @@ ClassName=nxcMyClass
 MethodName=filterUserById
 FileName=classes/nxcmyclass.php
 
+[filter_course_by_ente]
+ExtensionName=ocbootstrap_upad
+ClassName=nxcMyClass
+MethodName=filterCourseByEnte
+FileName=classes/nxcmyclass.php
+
 */ ?>

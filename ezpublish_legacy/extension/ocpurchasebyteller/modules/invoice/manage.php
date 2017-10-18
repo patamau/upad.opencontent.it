@@ -11,6 +11,7 @@ switch ($action) {
 
     case 'search':
         $ente     = $http->variable( 'ente', false );
+        $corso    = $http->variable( 'corso', false );
         $da       = $http->variable( 'da', false );
         $a        = $http->variable( 'a', false );
 
@@ -32,6 +33,7 @@ switch ($action) {
 
         $invoices = eZUpadInvoice::fetchList($conditions);
         $tpl->setVariable( "ente", $ente );
+        $tpl->setVariable( "corso", $corso );
         $tpl->setVariable( "da", $da );
         $tpl->setVariable( "a", $a );
         $tpl->setVariable( "invoices", $invoices );

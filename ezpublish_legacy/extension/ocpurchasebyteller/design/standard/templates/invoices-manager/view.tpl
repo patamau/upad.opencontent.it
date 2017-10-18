@@ -39,15 +39,38 @@
                     <button type="submit" class="btn btn-default" name="template" value="search">Cerca</button>
                 </form>
                 {if gt($invoices|count(), 0)}
-                	{def $corsi = array(36297,42245)}
-					CORSO: {$corso}<br/>
-					ENTE: {$ente}<br/>
-                	{set $corso = $corsi[0]}
-                	<select name="corso" id="corso" class="form-control">
-                		{foreach $corsi as $c}
-                			<option value="{$c}">{$c}</option>
-                		{/foreach}
-                	</select>
+	                <form method="post" action={"invoice/manage"|ezurl}  class="form-inline m_bottom_30">
+	                    <input type="hidden" name="action" value="search">
+	                    <input type="hidden" name="ente" value="{$ente}">
+	                    <input type="hidden" name="da" value="{$da}">
+	                    <input type="hidden" name="a" value="{$a}">
+	                    	<div class="form-group">
+	                    		<label for="corso">Corso</label>
+	                    		{if $ente|eq('all')}
+									{def $corsi = fetch( 'content', 'tree', hash( parent_node_id, 2, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'corso' )))}
+								{else}
+								{def $corsi = fetch( 'content', 'tree', hash( parent_node_id, 2, main_node_only, true(), class_filter_type, 'include', 'class_filter_array', array( 'corso' ),
+					            	'extended_attribute_filter', hash(
+								        'id', 'filter_course_by_ente',
+								        'params', hash(
+								        	'ente',$ente
+								        )
+								    )
+								))}
+								{/if}
+			                	<select name="corso" id="corso" class="form-control">
+			                		<option value="all"{if $corso|eq('all')} selected="selected"{/if}>Tutti</option>
+			                		{foreach $corsi as $c}
+			                			<option value="{$c.contentobject_id}"{if eq($corso, $c.contentobject_id)} selected="selected"{/if}>{$c.name}</option>
+			                		{/foreach}
+			                	</select>
+	                    	</div>
+	                    <button type="submit" class="btn btn-default" name="template" value="search" >Filtra</button>
+	                </form>
+                	{def $corsofiltro = fetch( 'content', 'object', hash( 'object_id', $corso ) )}
+                	{if $corsofiltro}
+					Filtro per corso: {$corsofiltro.name|wash} ({$corso})<br/>
+					{/if}
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>

@@ -26,6 +26,19 @@ class nxcMyClass
 		);
 	}
 	
+	public function filterCourseByEnte($params){
+		$joins = ' ezcontentobject_link.from_contentobject_id = ezcontentobject.id';
+		$joins .= ' AND ezcontentobject_link.contentclassattribute_id = 391';
+		$joins .= ' AND ezcontentobject.current_version=ezcontentobject_link.from_contentobject_version';
+		$joins .= ' AND ezcontentobject_link.to_contentobject_id = '.$params['ente'];
+		$joins .= ' AND ';
+		return array(
+				'tables'  => ', ezcontentobject_link',
+				'joins'   => $joins,
+				'columns' => null
+		);
+	}
+	
 	/**
 	 * Cerca utenti per contentobject_id
 	 * @param unknown $params 'id' utente
