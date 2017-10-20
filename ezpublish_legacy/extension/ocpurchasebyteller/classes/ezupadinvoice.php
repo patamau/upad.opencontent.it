@@ -223,13 +223,14 @@ class eZUpadInvoice extends eZPersistentObject
         //$a = mysql_real_escape_string($a); //la data di fine
         
         //CREAZIONE INTERVALLO DI DATE
-        $da = strtotime($da .  ' 00:00');
-        if (!$a  || $a = "") {
+        
+        if (!$a  || $a == "") {
             $a =  strtotime($da . ' 23:59');
         }
         else{
             $a =  strtotime($a . ' 23:59');
         }
+        $da = strtotime($da .  ' 00:00');
         
         $siteConfig = eZINI::instance( 'site.ini' );
         $db_user = $siteConfig->variable( 'DatabaseSettings', 'User' );
