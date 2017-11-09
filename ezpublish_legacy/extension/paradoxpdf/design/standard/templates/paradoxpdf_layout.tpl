@@ -74,6 +74,7 @@
                                  'ignore_content_expiry',$ignore_content_expiry)}
 
 *******************************************************************************************************}
+{$xhtml = $xhtml | wash()}
 
 {def $paradoxpdf_params = hash('xhtml', $xhtml,
                                'pdf_file_name',$module_result.content_info.url_alias|explode('/')|reverse|extract(0)[0],

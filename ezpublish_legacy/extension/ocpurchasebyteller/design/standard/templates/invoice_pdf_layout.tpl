@@ -55,6 +55,7 @@
                                  'ignore_content_expiry',$ignore_content_expiry)}
 
 *******************************************************************************************************}
+{$xhtml = $xhtml | wash()}
 
 {if ezini( 'DebugSettings', 'DebugOutput' )|eq('enabled')}
 {$xhtml}
