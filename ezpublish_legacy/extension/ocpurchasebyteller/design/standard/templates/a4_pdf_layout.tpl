@@ -56,7 +56,7 @@
 
 *******************************************************************************************************}
 {*set $xhtml = $xhtml | wash()*} 
-{*set $xhtml = $xhtml|explode('& ')|implode('&amp;')*}
+{set $xhtml = $xhtml|explode('& ')|implode('&amp; ')}
 {*$xhtml	*}
 {if ezini( 'DebugSettings', 'DebugOutput' )|eq('enabled')}
 {$xhtml}

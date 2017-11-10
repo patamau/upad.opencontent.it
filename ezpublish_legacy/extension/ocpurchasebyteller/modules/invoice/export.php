@@ -56,8 +56,7 @@ switch ($type) {
         break;
 
     case 'print':
-
-
+        eZDebug::writeWarning( "SONO NELLA PRINT", "PRINT" );
         $Result['path'] = array(
             array( 'text' => "Gestione Fatture", 'url' => 'invoices/list' ),
             array( 'text' => 'invoices-print', 'url' => false )
