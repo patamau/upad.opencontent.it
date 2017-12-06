@@ -530,3 +530,8 @@ td:hover .tooltip {
 	opacity: 1;
 	visibility: visible;
 }
+
+/* Menu icons */
+img.logo {
+	height: 45px;
+}
