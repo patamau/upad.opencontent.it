@@ -55,13 +55,15 @@
                                  'ignore_content_expiry',$ignore_content_expiry)}
 
 *******************************************************************************************************}
-
+{*set $xhtml = $xhtml | wash()*} 
+{set $xhtml = $xhtml|explode('& ')|implode('&amp; ')}
+{*$xhtml	*}
 {if ezini( 'DebugSettings', 'DebugOutput' )|eq('enabled')}
 {$xhtml}
 {else}
 {*def $paradoxpdf_params = hash('xhtml', $xhtml,
                                'pdf_file_name', $module_result.content_info.url_alias|explode('/')|reverse|extract(0)[0] )*}
-{def $pdf_file_name  = $module_result.content_info.url_alias|explode('/')|reverse|extract(0)[0]
+{def $pdf_file_name  = $module_result.content_info.url_alias|explode('/')|reverse|extract(0)[0] | wash()
     $keys           = array($uri_string,$current_user.contentobject_id)
     $subtree_expiry = $module_result.node_id
     $expiry         = 1

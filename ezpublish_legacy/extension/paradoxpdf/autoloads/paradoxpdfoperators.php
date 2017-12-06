@@ -76,7 +76,9 @@ class ParadoxPDFOperators
                     $expiry                = isset($params['expiry'])?$params['expiry'] : null ;
                     $ignore_content_expiry = isset($params['ignore_content_expiry'])?$params['ignore_content_expiry'] : false;
                     $content_type		   = isset($params['content_type']) ? $params['content_type'] : '';
-
+                    
+                    $xhtml = str_replace("& ","&amp; ",$xhtml);
+                    
                     $paradoxpdf = new ParadoxPDF();
                     $paradoxpdf->exportPDF( $xhtml, $pdf_file_name,$keys, $subtree_expiry, $expiry, $ignore_content_expiry, $content_type ) ;
 

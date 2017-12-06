@@ -36,7 +36,7 @@
         $pdf_file_name : just the name (without .pdf extension) that will be assigned
                          to generated file during download if not given "file.pdf" will
                          be used
-        $keys, $subtree_expiry, $expiry , $ignore_content_expiry : controls cache
+        $keys, $subtree_expiry, $expiry , $ignore_content_expiry : controls cache 
                          (see cache-block documentation)
 
   Example :
@@ -55,6 +55,9 @@
                                  'ignore_content_expiry',$ignore_content_expiry)}
 
 *******************************************************************************************************}
+{*set $xhtml = $xhtml | wash()*} 
+{set $xhtml = $xhtml|explode('& ')|implode('&amp; ')}
+{*$xhtml	*}
 
 {if ezini( 'DebugSettings', 'DebugOutput' )|eq('enabled')}
 {$xhtml}
