@@ -18,5 +18,7 @@ ezpublish_legacy/extension/ocwscourse/settings/ocwscourse.ini
 ezpublish_legacy/extension/ocsparkasse/settings/sparkasse.ini
 
 .project
+.buildpath
+.metadata/
 
 *~
