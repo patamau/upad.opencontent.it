@@ -1,5 +1,6 @@
 
-<a href={$href|ezurl(,'full')|explode('culturabz/')|implode()}
+{*<a href={$href|ezurl(,'full')|explode('culturabz/')|implode()}*}
+<a href="www.upad.it{$href|ezurl("no")|explode('culturabz/')|implode()}"
 	{if $id} id="{$id}"{/if}
 	{if $title} title="{$title}"{/if}
 	{if $target} target="{$target}"{/if}

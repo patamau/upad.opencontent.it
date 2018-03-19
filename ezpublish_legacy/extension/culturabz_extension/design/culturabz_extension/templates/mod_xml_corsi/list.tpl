@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <events>
-	{foreach $corsi_attivi as $corso max 2}
+	{foreach $corsi_attivi as $corso max 50}
 		{if $corso.data_map.area_tematica.content.relation_list[0].contentobject_id|ne('15903')}{*Se non si tratta di un corso TESSERAMENTO*}
 			{*$corso|attribute('show')*}
 			<event>
@@ -12,19 +12,46 @@
 					<searchgem>Bolzano</searchgem>
 					<!--  ID des Veranstaltungsortes auf kultur.bz.it  -->
 					<fkplaceid>1960</fkplaceid>
-					<!-- optional Name des Veranstaltungsortes wenn kultur.bz.it id nicht verfugbar | nicht empfehlenswert	-->
-					<searchplace>Sede Upad Bolzano/ Upad Bozen Firmensitz</searchplace>
 					<!--  Begin Datum  yyyy-mm-dd  -->
-					<startdate>{$corso.data_map.data_inizio.content|datetime( 'custom' ,'%Y-%m-%d' )}</startdate>
+					<startdate>{$corso.data_map.data_inizio.content.timestamp|datetime( 'custom' ,'%Y-%m-%d' )}</startdate>
 					<!--  optional End Datum yyyy-mm-dd  -->
-					<enddatedate>{$corso.data_map.data_fine.content|datetime( 'custom' ,'%Y-%m-%d' )}</enddatedate>
-					<!--  Begin Uhrzeit in Minuten  -->
-					{def $time = explode($corso.data_map.fascia_oraria.content ,'-')}
-					{if $time|count()|eq(2)}{*INSERISCO GLI ORARI SOLO SE CI SONO*}
-						<starttime>{$time[0]|trim('.')}</starttime>
-						<!--  optional End Uhrzeit in Minuten  -->
-						<endtime>{$time[1]|trim('.')}</endtime>
+					<enddatedate>{$corso.data_map.data_fine.content.timestamp|datetime( 'custom' ,'%Y-%m-%d' )}</enddatedate>
+					
+					{def $time = array()
+						 $separatori = array('-','/',' ')
+						 $fatto = false()
+						 $startTime = '0000'
+						 $endTime = '0000'}
+					{foreach $separatori as $separatore}
+						{set $time = $corso.data_map.orario.content|explode($separatore)}
+						{if $time|count()|eq(2)}{*INSERISCO GLI ORARI SOLO SE CI SONO*}
+							{set $startTime = $time[0]|trim()|explode('.')|implode()|explode(':')|implode()}
+							{set $endTime = $time[1]|trim()|explode('.')|implode()|explode(':')|implode()}
+							{if $startTime | count_chars() |eq(2)}
+								{set $startTime = concat($startTime,'00')}
+							{/if}
+							{if $endTime | count_chars() |eq(2)}
+								{set $endTime = concat($endTime,'00')}
+							{/if}
+							{if $startTime|is_numeric()}
+								<!--  Begin Uhrzeit in Minuten  -->
+								<starttime>{$startTime}</starttime>
+								{set $fatto = true()}	
+								
+							{/if}
+							{if $endTime|is_numeric()}
+								<!--  optional End Uhrzeit in Minuten  --> 
+								<endtime>{$endTime}</endtime>
+							{/if}
+							{/break}
+						{/if}
+					{/foreach}
+					{if $fatto|eq(false())}
+						<!--  Begin Uhrzeit in Minuten  -->
+						<starttime>0000</starttime>
 					{/if}
+					
+					
 				</date>
 				<!--
 				 Eindeutige ID der Veranstaltung auf dem Partnersystem 
@@ -49,9 +76,12 @@
 				<!--  Src des Bildes  -->
 				<images>
 					<imagesrc>
-						{def $url_array = $corso.data_map.image.content.reference.url|ezurl('no','full')|explode('/')}
+						{*def $url_array = $corso.data_map.image.content.reference.url|ezurl('no','full')|explode('/')}
 						{set $url_array = $url_array |remove(3,1)}
-						{$url_array|implode('/')}
+						{$url_array|implode('/')*}
+						{def $url_array = $corso.data_map.image.content.reference.url|ezurl('no')}
+						{set $url_array = $url_array |explode('culturabz/')|implode()}
+						www.upad.it{$url_array}
 					</imagesrc>
 					
 					{def $ente = fetch( content, object, hash( object_id, $corso.data_map.ente.content.relation_list[0].contentobject_id ) )}
