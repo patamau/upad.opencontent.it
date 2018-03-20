@@ -109,7 +109,7 @@ class Orario_Operator
                                            substr($orario_stringa,4,4));
                 }
                 else{
-                    $operatorValue = array('0000','0000');
+                    $operatorValue = array('0000','0100');
                 }
             } break;
         }
