@@ -37,8 +37,8 @@ $tpl->setVariable( 'view_parameters', $viewParameters );*/
 $params = array(
     'ClassFilterType' => 'include',
     'ClassFilterArray' => array( 'corso' ),
-    'AttributeFilter' => array( array(
-        'corso/data_inizio', '<', time() ) )
+    'AttributeFilter' => array(array(
+        'corso/data_inizio','>', time() ))
 ); // assuming that CommandLine is the identifier of your class
 
 $nodeList =& eZContentObjectTreeNode::subTreeByNodeID( $params , 2 ); // where $parentNodeId is the root node or whatever...

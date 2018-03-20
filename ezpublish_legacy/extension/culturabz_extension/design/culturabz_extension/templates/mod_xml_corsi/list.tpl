@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <events>
-	{foreach $corsi_attivi as $corso max 50}
+	{foreach $corsi_attivi as $corso}
 		{if $corso.data_map.area_tematica.content.relation_list[0].contentobject_id|ne('15903')}{*Se non si tratta di un corso TESSERAMENTO*}
 			{*$corso|attribute('show')*}
 			<event>
@@ -17,41 +17,13 @@
 					<!--  optional End Datum yyyy-mm-dd  -->
 					<enddatedate>{$corso.data_map.data_fine.content.timestamp|datetime( 'custom' ,'%Y-%m-%d' )}</enddatedate>
 					
-					{def $time = array()
-						 $separatori = array('-','/',' ')
-						 $fatto = false()
-						 $startTime = '0000'
-						 $endTime = '0000'}
-					{foreach $separatori as $separatore}
-						{set $time = $corso.data_map.orario.content|explode($separatore)}
-						{if $time|count()|eq(2)}{*INSERISCO GLI ORARI SOLO SE CI SONO*}
-							{set $startTime = $time[0]|trim()|explode('.')|implode()|explode(':')|implode()}
-							{set $endTime = $time[1]|trim()|explode('.')|implode()|explode(':')|implode()}
-							{if $startTime | count_chars() |eq(2)}
-								{set $startTime = concat($startTime,'00')}
-							{/if}
-							{if $endTime | count_chars() |eq(2)}
-								{set $endTime = concat($endTime,'00')}
-							{/if}
-							{if $startTime|is_numeric()}
-								<!--  Begin Uhrzeit in Minuten  -->
-								<starttime>{$startTime}</starttime>
-								{set $fatto = true()}	
+					
+					{def $time = get_orario($corso.data_map.orario.content)}
+					<!--  Begin Uhrzeit in Minuten  -->
+					<starttime>{$time[0]}</starttime>	
 								
-							{/if}
-							{if $endTime|is_numeric()}
-								<!--  optional End Uhrzeit in Minuten  --> 
-								<endtime>{$endTime}</endtime>
-							{/if}
-							{/break}
-						{/if}
-					{/foreach}
-					{if $fatto|eq(false())}
-						<!--  Begin Uhrzeit in Minuten  -->
-						<starttime>0000</starttime>
-					{/if}
-					
-					
+					<!--  optional End Uhrzeit in Minuten  --> 
+					<endtime>{$time[1]}</endtime>
 				</date>
 				<!--
 				 Eindeutige ID der Veranstaltung auf dem Partnersystem 
