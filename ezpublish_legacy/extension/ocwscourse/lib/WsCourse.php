@@ -24,14 +24,18 @@ class WsCourse {
         $context = stream_context_create(
             array(
                 'ssl' => array(
-                    'crypto_method' => STREAM_CRYPTO_METHOD_TLS_CLIENT
+                    'ciphers' => 'ALL',
+                    'disable_compression' => true,
+                    'crypto_method' => STREAM_CRYPTO_METHOD_TLS_CLIENT,
+                    'verify_peer' => true,
+                    'cafile' => '/etc/pki/tls/certs/ca-bundle.crt'
                 )
             )
         );
 
         $options = array(
             'stream_context' => $context,
-            //'cache_wsdl' => WSDL_CACHE_NONE
+            'cache_wsdl' => WSDL_CACHE_NONE
         );
 
         if ($trace)
