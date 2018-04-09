@@ -39,11 +39,13 @@
 				<desc lang="it">{$corso.data_map.title.content|explode('&')|implode('&amp;')}</desc>
 				<!--  Beschreibung DE der Veranstaltung auch Html  -->
 				<content lang="it">
-					{*$corso.data_map.description.content.input.input_xml|explode('&')|implode('&amp;')*}
-					{set-block variable=$descrizioneXML}
-						{attribute_view_gui attribute=$corso.data_map.description}
-					{/set-block}
-					{$descrizioneXML|explode('&')|implode('&amp;')|explode('&nbsp')|implode('')}
+					<![CDATA[
+						{*$corso.data_map.description.content.input.input_xml|explode('&')|implode('&amp;')*}
+						{set-block variable=$descrizioneXML}
+							{attribute_view_gui attribute=$corso.data_map.description}
+						{/set-block}
+						{$descrizioneXML|explode('&nbsp')|implode('')}
+					]]>
 				</content>
 				<!--  Src des Bildes  -->
 				<images>
@@ -51,9 +53,11 @@
 						{*def $url_array = $corso.data_map.image.content.reference.url|ezurl('no','full')|explode('/')}
 						{set $url_array = $url_array |remove(3,1)}
 						{$url_array|implode('/')*}
-						{def $url_array = $corso.data_map.image.content.reference.url|ezurl('no')}
-						{set $url_array = $url_array |explode('culturabz/')|implode()}
-						www.upad.it{$url_array}
+						{def $url_array = $corso.data_map.image.content.reference.url|ezurl('no','full')}
+						{if $url_array|ne('')}
+							{set $url_array = $url_array |explode('culturabz/')|implode()}
+							{$url_array}
+						{/if}
 					</imagesrc>
 					
 					{def $ente = fetch( content, object, hash( object_id, $corso.data_map.ente.content.relation_list[0].contentobject_id ) )}
