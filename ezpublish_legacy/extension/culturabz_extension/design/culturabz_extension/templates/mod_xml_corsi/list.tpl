@@ -44,7 +44,7 @@
 						{set-block variable=$descrizioneXML}
 							{attribute_view_gui attribute=$corso.data_map.description}
 						{/set-block}
-						{$descrizioneXML|explode('&nbsp')|implode('')}
+						{$descrizioneXML|explode('&nbsp;')|implode('')}
 					]]>
 				</content>
 				<!--  Src des Bildes  -->
