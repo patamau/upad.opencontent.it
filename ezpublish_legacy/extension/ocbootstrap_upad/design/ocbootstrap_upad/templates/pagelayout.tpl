@@ -40,8 +40,8 @@
 <script>
      {literal}
   document.addEventListener('DOMContentLoaded', function(event) {
-    cookieChoices.showCookieConsentBar('Ti informiamo che nel nostro sito web sono attivi i cookie. Continuando a navigare sul nostro sito, accetti implicitamente l\'utilizzo dei cookie.',
-      'Chiudi', 'Maggiori informazioni', 'http://www.upad.it/ita/Privacy');
+    cookieChoices.showCookieConsentBar("In base alla normativa in materia di privacy applicabile, Il Titolare del trattamento dei dati acquisiti tramite il presente sito informa l’utente che tale sito web non utilizza cookie di profilazione al fine di inviare messaggi pubblicitari in linea con le preferenze manifestate nell'ambito della navigazione in rete. Il presente sito installa cookies di terze parti. La prosecuzione della navigazione, compreso lo scroll ed il click su elementi del sito, equivale a consenso.Per maggiori informazioni, anche in ordine ai cookies tecnici utilizzati dal sito, e per negare il consenso all’installazione dei singoli cookie è possibile consultare",
+      'Proseguo ed acconsento', 'l’informativa cookies completa', '/Cookies');
   });
   {/literal}
 </script>

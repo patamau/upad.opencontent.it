@@ -38,8 +38,8 @@
     {/if}
     <nav class="col-lg-6 col-md-6 col-sm-6 t_align_r t_xs_align_c">
         <ul class="d_inline_b horizontal_list clearfix f_size_small users_nav">
-            <li><a href="{'/Contatti'|ezurl( 'no' )}" class="default_t_color">Contattaci</a></li>
-            <li><a href="{'Link-utili'|ezurl( 'no' )}" class="default_t_color">Link utili</a></li>
+            <li><a href="{'/Informazioni-per-l-iscrizione'|ezurl( 'no' )}" class="default_t_color">Contattaci</a></li>
+            <li><a href="{'/Cookies'|ezurl( 'no' )}" class="default_t_color">Cookies</a></li>
             <li><a href="{'/content/view/sitemap/2'|ezurl( 'no' )}" class="default_t_color">Mappa del sito</a></li>
             <li><a href="{'/Privacy'|ezurl( 'no' )}" class="default_t_color">Privacy</a></li>
             <li><a href="{'/Note-legali'|ezurl( 'no' )}" class="default_t_color">Note legali</a></li>

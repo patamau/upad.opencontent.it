@@ -182,6 +182,8 @@ header .h_bot_part {
 .footer_bottom_part {
   background-color: #c3392c;
   color: #fff;
+  padding-bottom: 80px;
+
 }
 .footer_bottom_part a {
   color: #fff;

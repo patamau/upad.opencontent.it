@@ -73,8 +73,8 @@
         <div class="container clearfix t_mxs_align_c">
             <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">UPAD</span></p>
             <ul class="f_left horizontal_list clearfix users_nav m_left_10">
-                <li><a class="color_light_2" href="{'/Contatti'|ezurl( 'no' )}">Contatti</a></li>
-                <li><a class="color_light_2" href="#">Link utili</a></li>
+                <li><a class="color_light_2" href="{'/Informazioni-per-l-iscrizione'|ezurl( 'no' )}">Contattaci</a></li>
+                <li><a class="color_light_2" href="{'/Cookies'|ezurl( 'no' )}">Cookies</a></li>
                 <li><a class="color_light_2" href="{'/content/view/sitemap/2'|ezurl( 'no' )}">Mappa del sito</a></li>
                 <li><a class="color_light_2" href="{'/Privacy'|ezurl( 'no' )}">Privacy</a></li>
                 <li><a class="color_light_2" href="{'/Note-legali'|ezurl( 'no' )}">Note legali</a></li>
